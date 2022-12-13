@@ -12,11 +12,5 @@ import './assets/main.css'
 
 createApp(App)
   .use(router)
-  .use(vuetify)
   .use(createPinia())
-  .use(DaySpanVuetify,{
-    methods:{
-      getDefaultEventColor: () => '#1976d2'
-    }
-  })
   .mount('#app')
