@@ -1,34 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Codespaces
-Marketplace
-Explore
- 
-@cajmrn 
-richardtallent
-/
-vue-simple-calendar-sample
-Public
-Code
-Issues
-1
-Pull requests
-3
-Actions
-Projects
-Security
-Insights
-vue-simple-calendar-sample/src/App.vue
-@richardtallent
-richardtallent Switch to vite, Vue 3, and 6b3
-Latest commit b2b1932 on Feb 14, 2021
- History
- 2 contributors
-@richardtallent@samitnuk
-412 lines (385 sloc)  10.9 KB
-
 <template>
 	<div id="app">
 		<div class="calendar-controls">
