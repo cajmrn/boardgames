@@ -1,12 +1,19 @@
 <template>
-	<div id="app">
+	<div id="event-modal">
+		<EventModal :modalActive="modalActive">
+			<div class="modal-content">
+				<h1>this is a Modal title</h1>
+				<p> this is a modal message</p>
+			</div>
+		</EventModal>
+	</div>
+	<div id="cal">
+		
 		<div class="calendar-controls">
 			<div v-if="message" class="notification is-success">{{ message }}</div>
 
 			<div class="box">
-				<h4 class="title is-5">Play with the options!</h4>
-
-				<div class="field">
+				<!-- <div class="field">
 					<label class="label">Period UOM</label>
 					<div class="control">
 						<div class="select">
@@ -30,9 +37,9 @@
 							</select>
 						</div>
 					</div>
-				</div>
+				</div> -->
 
-				<div class="field">
+				<!-- <div class="field">
 					<label class="label">Starting day of the week</label>
 					<div class="control">
 						<div class="select">
@@ -43,16 +50,16 @@
 							</select>
 						</div>
 					</div>
-				</div>
+				</div> -->
 
-				<div class="field">
+				<!-- <div class="field">
 					<label class="checkbox">
 						<input v-model="useTodayIcons" type="checkbox" />
 						Use icon for today's period
 					</label>
-				</div>
+				</div> -->
 
-				<div class="field">
+				<!-- <div class="field">
 					<label class="checkbox">
 						<input v-model="displayWeekNumbers" type="checkbox" />
 						Show week number
@@ -72,14 +79,15 @@
 						<input v-model="useDefaultTheme" type="checkbox" />
 						Default
 					</label>
-				</div>
+				</div> -->
 
-				<div class="field">
+				<!-- <div class="field">
 					<label class="checkbox">
 						<input v-model="useHolidayTheme" type="checkbox" />
 						Holidays
 					</label>
 				</div>
+				 -->
 			</div>
 
 			<div class="box">
@@ -91,20 +99,21 @@
 				</div>
 
 				<div class="field">
-					<label class="label">Start date</label>
+					<label class="label">date</label>
 					<div class="control">
 						<input v-model="newItemStartDate" class="input" type="date" />
 					</div>
 				</div>
-
+<!--
 				<div class="field">
 					<label class="label">End date</label>
 					<div class="control">
 						<input v-model="newItemEndDate" class="input" type="date" />
 					</div>
 				</div>
-
+-->
 				<button class="button is-info" @click="clickTestAddItem">Add Item</button>
+				<button class="button is-info" @click="toggleModal">Show Modal</button>
 			</div>
 		</div>
 		<div class="calendar-parent">
@@ -141,143 +150,146 @@
 		</div>
 	</div>
 </template>
-<script>
+<script lang="js">
 // Load CSS from the published version
-import "../../node_modules/vue-simple-calendar/dist/style.css"
-//import "../../node_modules/vue-simple-calendar/dist/css/default.css"
-//import "../../node_modules/vue-simple-calendar/static/css/holidays-us.css"
-// Load CSS from the local repo
-//require("../../vue-simple-calendar/static/css/default.css")
-//require("../../vue-simple-calendar/static/css/holidays-us.css")
-import { CalendarView, CalendarViewHeader, CalendarMath } from "vue-simple-calendar" // published version
-//} from "../../vue-simple-calendar/src/components/bundle.js" // local repo
-export default {
-	name: "App",
-	components: {
-		CalendarView,
-		CalendarViewHeader,
-	},
-	data() {
-		return {
-			/* Show the current month, and give it some fake items to show */
-			showDate: this.thisMonth(1),
-			message: "",
-			startingDayOfWeek: 0,
-			disablePast: false,
-			disableFuture: false,
-			displayPeriodUom: "month",
-			displayPeriodCount: 1,
-			displayWeekNumbers: false,
-			showTimes: true,
-			selectionStart: null,
-			selectionEnd: null,
-			newItemTitle: "",
-			newItemStartDate: "",
-			newItemEndDate: "",
-			useDefaultTheme: true,
-			useHolidayTheme: true,
-			useTodayIcons: false,
-			items: [
-				{
-					id: "e3",
-					startDate: this.thisMonth(7, 9, 25),
-					endDate: this.thisMonth(10, 16, 30),
-					title: "Multi-day item with a long title and times",
-				},
-				{
-					id: "e4",
-					startDate: this.thisMonth(20),
-					title: "My Birthday!",
-					classes: "birthday",
-					url: "https://en.wikipedia.org/wiki/Birthday",
-				}
-			],
-		}
-	},
-	computed: {
-		userLocale() {
-			return CalendarMath.getDefaultBrowserLocale
+	import "../../node_modules/vue-simple-calendar/dist/style.css"
+	//import "../../node_modules/vue-simple-calendar/dist/css/default.css"
+	import { CalendarView, CalendarViewHeader, CalendarMath } from "vue-simple-calendar" // published version
+	import EventModal  from "@/components/EventModal.vue"
+	import {ref} from 'vue'
+	//} from "../../vue-simple-calendar/src/components/bundle.js" // local repo
+	export default {
+		name: "App",
+		components: {
+			CalendarView,
+			CalendarViewHeader,
+			EventModal
 		},
-		dayNames() {
-			return CalendarMath.getFormattedWeekdayNames(this.userLocale, "long", 0)
-		},
-		themeClasses() {
+		data() {
 			return {
-				"theme-default": this.useDefaultTheme,
-				"holiday-us-traditional": this.useHolidayTheme,
-				"holiday-us-official": this.useHolidayTheme,
+				/* Show the current month, and give it some fake items to show */
+				modalActive: ref(false),
+				showDate: this.thisMonth(1),
+				message: "",
+				startingDayOfWeek: 0,
+				disablePast: false,
+				disableFuture: false,
+				displayPeriodUom: "month",
+				displayPeriodCount: 1,
+				displayWeekNumbers: false,
+				showTimes: true,
+				selectionStart: null,
+				selectionEnd: null,
+				newItemTitle: "",
+				newItemStartDate: "",
+				newItemEndDate: "",
+				useDefaultTheme: true,
+				useHolidayTheme: true,
+				useTodayIcons: false,
+				items: [
+					{
+						id: "e3",
+						startDate: this.thisMonth(7, 9, 25),
+						endDate: this.thisMonth(10, 16, 30),
+						title: "Multi-day item with a long title and times",
+					},
+					{
+						id: "e4",
+						startDate: this.thisMonth(20),
+						title: "My Birthday!",
+						classes: "birthday",
+						url: "https://en.wikipedia.org/wiki/Birthday",
+					}
+				],
 			}
 		},
-		myDateClasses() {
-			// This was added to demonstrate the dateClasses prop. Note in particular that the
-			// keys of the object are `yyyy-mm-dd` ISO date strings (not dates), and the values
-			// for those keys are strings or string arrays. Keep in mind that your CSS to style these
-			// may need to be fairly specific to make it override your theme's styles. See the
-			// CSS at the bottom of this component to see how these are styled.
-			const o = {}
-			const theFirst = this.thisMonth(1)
-			const ides = [2, 4, 6, 9].includes(theFirst.getMonth()) ? 15 : 13
-			const idesDate = this.thisMonth(ides)
-			o[CalendarMath.isoYearMonthDay(idesDate)] = "ides"
-			o[CalendarMath.isoYearMonthDay(this.thisMonth(21))] = ["do-you-remember", "the-21st"]
-			return o
+		computed: {
+			userLocale() {
+				return CalendarMath.getDefaultBrowserLocale
+			},
+			dayNames() {
+				return CalendarMath.getFormattedWeekdayNames(this.userLocale, "long", 0)
+			},
+			themeClasses() {
+				return {
+					"theme-default": this.useDefaultTheme,
+					"holiday-us-traditional": this.useHolidayTheme,
+					"holiday-us-official": this.useHolidayTheme,
+				}
+			},
+			myDateClasses() {
+				// This was added to demonstrate the dateClasses prop. Note in particular that the
+				// keys of the object are `yyyy-mm-dd` ISO date strings (not dates), and the values
+				// for those keys are strings or string arrays. Keep in mind that your CSS to style these
+				// may need to be fairly specific to make it override your theme's styles. See the
+				// CSS at the bottom of this component to see how these are styled.
+				const o = {}
+				const theFirst = this.thisMonth(1)
+				const ides = [2, 4, 6, 9].includes(theFirst.getMonth()) ? 15 : 13
+				const idesDate = this.thisMonth(ides)
+				o[CalendarMath.isoYearMonthDay(idesDate)] = "ides"
+				o[CalendarMath.isoYearMonthDay(this.thisMonth(21))] = ["do-you-remember", "the-21st"]
+				return o
+			},
 		},
-	},
-	mounted() {
-		this.newItemStartDate = CalendarMath.isoYearMonthDay(CalendarMath.today())
-		this.newItemEndDate = CalendarMath.isoYearMonthDay(CalendarMath.today())
-	},
-	methods: {
-		periodChanged() {
-			// range, eventSource) {
-			// Demo does nothing with this information, just including the method to demonstrate how
-			// you can listen for changes to the displayed range and react to them (by loading items, etc.)
-			//console.log(eventSource)
-			//console.log(range)
+		mounted() {
+			this.newItemStartDate = CalendarMath.isoYearMonthDay(CalendarMath.today())
+			this.newItemEndDate = CalendarMath.isoYearMonthDay(CalendarMath.today())
 		},
-		thisMonth(d, h, m) {
-			const t = new Date()
-			return new Date(t.getFullYear(), t.getMonth(), d, h || 0, m || 0)
+		methods: {
+			periodChanged() {
+				// range, eventSource) {
+				// Demo does nothing with this information, just including the method to demonstrate how
+				// you can listen for changes to the displayed range and react to them (by loading items, etc.)
+				//console.log(eventSource)
+				//console.log(range)
+			},
+			thisMonth(d, h, m) {
+				const t = new Date()
+				return new Date(t.getFullYear(), t.getMonth(), d, h || 0, m || 0)
+			},
+			onClickDay(d) {
+				this.selectionStart = null
+				this.selectionEnd = null
+				this.message = `You clicked: ${d.toLocaleDateString()}`
+			},
+			onClickItem(e) {
+				this.message = `You clicked: ${e.title}`
+			},
+			setShowDate(d) {
+				this.message = `Changing calendar view to ${d.toLocaleDateString()}`
+				this.showDate = d
+			},
+			setSelection(dateRange) {
+				this.selectionEnd = dateRange[1]
+				this.selectionStart = dateRange[0]
+			},
+			finishSelection(dateRange) {
+				this.setSelection(dateRange)
+				this.message = `You selected: ${this.selectionStart.toLocaleDateString()} -${this.selectionEnd.toLocaleDateString()}`
+			},
+			onDrop(item, date) {
+				this.message = `You dropped ${item.id} on ${date.toLocaleDateString()}`
+				// Determine the delta between the old start date and the date chosen,
+				// and apply that delta to both the start and end date to move the item.
+				const eLength = CalendarMath.dayDiff(item.startDate, date)
+				item.originalItem.startDate = CalendarMath.addDays(item.startDate, eLength)
+				item.originalItem.endDate = CalendarMath.addDays(item.endDate, eLength)
+			},
+			clickTestAddItem() {
+				this.items.push({
+					startDate: this.newItemStartDate,
+					endDate: this.newItemEndDate,
+					title: this.newItemTitle,
+					id: "e" + Math.random().toString(36).substr(2, 10),
+				})
+				this.message = "You added a calendar item!"
+			},
+			toggleModal() {
+				this.modalActive = !this.modalActive
+			}
 		},
-		onClickDay(d) {
-			this.selectionStart = null
-			this.selectionEnd = null
-			this.message = `You clicked: ${d.toLocaleDateString()}`
-		},
-		onClickItem(e) {
-			this.message = `You clicked: ${e.title}`
-		},
-		setShowDate(d) {
-			this.message = `Changing calendar view to ${d.toLocaleDateString()}`
-			this.showDate = d
-		},
-		setSelection(dateRange) {
-			this.selectionEnd = dateRange[1]
-			this.selectionStart = dateRange[0]
-		},
-		finishSelection(dateRange) {
-			this.setSelection(dateRange)
-			this.message = `You selected: ${this.selectionStart.toLocaleDateString()} -${this.selectionEnd.toLocaleDateString()}`
-		},
-		onDrop(item, date) {
-			this.message = `You dropped ${item.id} on ${date.toLocaleDateString()}`
-			// Determine the delta between the old start date and the date chosen,
-			// and apply that delta to both the start and end date to move the item.
-			const eLength = CalendarMath.dayDiff(item.startDate, date)
-			item.originalItem.startDate = CalendarMath.addDays(item.startDate, eLength)
-			item.originalItem.endDate = CalendarMath.addDays(item.endDate, eLength)
-		},
-		clickTestAddItem() {
-			this.items.push({
-				startDate: this.newItemStartDate,
-				endDate: this.newItemEndDate,
-				title: this.newItemTitle,
-				id: "e" + Math.random().toString(36).substr(2, 10),
-			})
-			this.message = "You added a calendar item!"
-		},
-	},
-}
+	}
 </script>
 
 <style>
@@ -285,13 +297,14 @@ html,
 body {
 	height: 100%;
 	margin: 0;
+	color: black;
 	/*background-color: #f7fcff;*/
 }
-#app {
+#cal {
 	display: flex;
 	flex-direction: row;
 	font-family: Calibri, sans-serif;
-	width: 95vw;
+	/*width: 95vw;*/
 	min-width: 30rem;
 	max-width: 100rem;
 	min-height: 40rem;
@@ -302,6 +315,7 @@ body {
 	margin-right: 1rem;
 	min-width: 14rem;
 	max-width: 14rem;
+	color:white;
 }
 .calendar-parent {
 	display: flex;
@@ -336,6 +350,6 @@ body {
 	content: "\271D";
 }
 .cv-day.do-you-remember.the-21st .cv-day-number::after {
-	content: "\1F30D\1F32C\1F525";
+	content: "";
 }
 </style>
