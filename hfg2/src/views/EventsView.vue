@@ -157,6 +157,8 @@
 	import { CalendarView, CalendarViewHeader, CalendarMath } from "vue-simple-calendar" // published version
 	import EventModal  from "@/components/EventModal.vue"
 	import {ref} from 'vue'
+	import { mapState, mapStores } from "pinia"
+	import { useMikeDbStore } from "@/stores/events"
 	//} from "../../vue-simple-calendar/src/components/bundle.js" // local repo
 	export default {
 		name: "App",
@@ -231,10 +233,13 @@
 				o[CalendarMath.isoYearMonthDay(this.thisMonth(21))] = ["do-you-remember", "the-21st"]
 				return o
 			},
+			...mapStores(useMikeDbStore)
+			,...mapState(useMikeDbStore,['events'])
 		},
 		mounted() {
 			this.newItemStartDate = CalendarMath.isoYearMonthDay(CalendarMath.today())
 			this.newItemEndDate = CalendarMath.isoYearMonthDay(CalendarMath.today())
+			
 		},
 		methods: {
 			periodChanged() {
@@ -287,6 +292,7 @@
 			},
 			toggleModal() {
 				this.modalActive = !this.modalActive
+				console.log(this.eventsStore.getAllEvents())
 			}
 		},
 	}
