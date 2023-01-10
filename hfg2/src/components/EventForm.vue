@@ -1,7 +1,7 @@
 <template>
 <form @submit="add">
     <div>
-        <h1>Add Game</h1>
+        <h1>Add New Game</h1>
     </div>
     <div class="field">
         <label class="label">Game</label>
