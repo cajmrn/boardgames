@@ -13,10 +13,12 @@ export const useMikeDbStore =  defineStore('events',{
     actions:{
         async getAllEvents(){
             return await _mikedb.get(MIKEDB_EVENT_URL)
-                //.then((events) => (this.game_events = events.data))
                 .then(response => {
                     this.game_events = response.data
                 })
+        },
+        async postNewEvent(_eventdetails: any) {
+            return await _mikedb.post(MIKEDB_EVENT_URL,_eventdetails)
         }
     }
 })

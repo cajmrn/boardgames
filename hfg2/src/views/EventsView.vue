@@ -2,8 +2,6 @@
 	<div id="event-modal">
 		<EventModal :modalActive="modalActive">
 			<div class="modal-content">
-				<h1>this is a Modal title</h1>
-				<p> this is a modal message</p>
 			</div>
 		</EventModal>
 	</div>
