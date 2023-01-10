@@ -16,9 +16,14 @@ export const useMikeDbStore =  defineStore('events',{
                 .then(response => {
                     this.game_events = response.data
                 })
+                .catch((err) => console.log(err))
         },
         async postNewEvent(_eventdetails: any) {
             return await _mikedb.post(MIKEDB_EVENT_URL,_eventdetails)
+            .then(response => {
+                console.log(response)
+            })
+            .catch((err) => console.log(err));
         }
     }
 })

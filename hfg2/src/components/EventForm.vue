@@ -19,18 +19,22 @@
 </form>
 </template>
 <script>
-import { _mikedb } from '@/stores/_mikedb';
+import { useMikeDbStore } from "@/stores/events"
+import { mapStores, mapState } from "pinia";
 export default {
     data(){
         return{
             eventName:""
             ,eventDate: ""
-        }
-        
+        }   
     },
-    methods:{
+    computed:{
+        ...mapStores(useMikeDbStore)
+		,...mapState(useMikeDbStore,['events'])
+    }
+    ,methods:{
         add() {
-            alert(this.eventName + " on " + this.eventDate)
+            this.eventsStore.postNewEvent({"startDate":this.eventDate, "title":this.eventName, "attendees":[0,1,2,3]})
         }
     }
 }

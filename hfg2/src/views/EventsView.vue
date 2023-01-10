@@ -1,5 +1,5 @@
 <template>
-	<div id="event-modal">
+	<div id="event-modal-outer">
 		<EventModal :modalActive="modalActive">
 			<div class="modal-content">
 			</div>
@@ -238,6 +238,9 @@
 			this.newItemStartDate = CalendarMath.isoYearMonthDay(CalendarMath.today())
 			this.newItemEndDate = CalendarMath.isoYearMonthDay(CalendarMath.today())
 			this.eventsStore.getAllEvents()
+
+			this.items = this.eventsStore.eventList.slice()
+			
 			
 		},
 		methods: {
@@ -292,13 +295,16 @@
 			toggleModal() {
 				this.modalActive = !this.modalActive
 
-				console.log(this.eventsStore.eventList[0])
-				const item = {
-					startDate: this.eventsStore.eventList[0].date
-					,title: this.eventsStore.eventList[0].game
-					,id: this.eventsStore.eventList[0].id
-				}
-				this.items.push(item)
+				console.log(this.eventsStore.eventList[2])
+				//this.eventsStore.eventList.forEach((i) => {this.items.push(i)})
+				this.items = this.eventsStore.eventList.slice()
+				// const item = {
+				// 	startDate: this.eventsStore.eventList[2].date
+				// 	,title: this.eventsStore.eventList[2].game
+				// 	,id: this.eventsStore.eventList[2].id
+				// }
+				// this.items.push(item)
+				//console.log(this.items)
 			}
 		},
 	}
@@ -363,5 +369,9 @@ body {
 }
 .cv-day.do-you-remember.the-21st .cv-day-number::after {
 	content: "";
+}
+.modal-content{
+	display: flex;
+	flex-direction: column;
 }
 </style>
