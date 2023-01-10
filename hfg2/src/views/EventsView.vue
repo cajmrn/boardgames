@@ -189,7 +189,7 @@
 				useHolidayTheme: true,
 				useTodayIcons: false,
 				items: [
-					{
+					/*{
 						id: "e3",
 						startDate: this.thisMonth(7, 9, 25),
 						endDate: this.thisMonth(10, 16, 30),
@@ -201,7 +201,7 @@
 						title: "My Birthday!",
 						classes: "birthday",
 						url: "https://en.wikipedia.org/wiki/Birthday",
-					}
+					}*/
 				],
 			}
 		},
@@ -239,6 +239,7 @@
 		mounted() {
 			this.newItemStartDate = CalendarMath.isoYearMonthDay(CalendarMath.today())
 			this.newItemEndDate = CalendarMath.isoYearMonthDay(CalendarMath.today())
+			this.eventsStore.getAllEvents()
 			
 		},
 		methods: {
@@ -292,7 +293,14 @@
 			},
 			toggleModal() {
 				this.modalActive = !this.modalActive
-				console.log(this.eventsStore.getAllEvents())
+
+				console.log(this.eventsStore.eventList[0])
+				const item = {
+					startDate: this.eventsStore.eventList[0].date
+					,title: this.eventsStore.eventList[0].game
+					,id: this.eventsStore.eventList[0].id
+				}
+				this.items.push(item)
 			}
 		},
 	}
