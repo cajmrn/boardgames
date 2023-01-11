@@ -1,118 +1,12 @@
 <template>
 	<div id="event-modal-outer">
-		<EventModal :modalActive="modalActive">
+		<EventModal @close="toggleModal" :modalActive="modalActive">
 			<div class="modal-content">
 			</div>
 		</EventModal>
 	</div>
-	<div id="cal">
-		
+	<div id="cal">		
 		<div class="calendar-controls">
-			<div v-if="message" class="notification is-success">{{ message }}</div>
-
-			<div class="box">
-				<!-- <div class="field">
-					<label class="label">Period UOM</label>
-					<div class="control">
-						<div class="select">
-							<select v-model="displayPeriodUom">
-								<option>month</option>
-								<option>week</option>
-								<option>year</option>
-							</select>
-						</div>
-					</div>
-				</div>
-
-				<div class="field">
-					<label class="label">Period Count</label>
-					<div class="control">
-						<div class="select">
-							<select v-model="displayPeriodCount">
-								<option :value="1">1</option>
-								<option :value="2">2</option>
-								<option :value="3">3</option>
-							</select>
-						</div>
-					</div>
-				</div> -->
-
-				<!-- <div class="field">
-					<label class="label">Starting day of the week</label>
-					<div class="control">
-						<div class="select">
-							<select v-model="startingDayOfWeek">
-								<option v-for="(d, index) in dayNames" :key="index" :value="index">
-									{{ d }}
-								</option>
-							</select>
-						</div>
-					</div>
-				</div> -->
-
-				<!-- <div class="field">
-					<label class="checkbox">
-						<input v-model="useTodayIcons" type="checkbox" />
-						Use icon for today's period
-					</label>
-				</div> -->
-
-				<!-- <div class="field">
-					<label class="checkbox">
-						<input v-model="displayWeekNumbers" type="checkbox" />
-						Show week number
-					</label>
-				</div>
-
-				<div class="field">
-					<label class="checkbox">
-						<input v-model="showTimes" type="checkbox" />
-						Show times
-					</label>
-				</div>
-
-				<div class="field">
-					<label class="label">Themes</label>
-					<label class="checkbox">
-						<input v-model="useDefaultTheme" type="checkbox" />
-						Default
-					</label>
-				</div> -->
-
-				<!-- <div class="field">
-					<label class="checkbox">
-						<input v-model="useHolidayTheme" type="checkbox" />
-						Holidays
-					</label>
-				</div>
-				 -->
-			</div>
-
-			<div class="box">
-				<div class="field">
-					<label class="label">Title</label>
-					<div class="control">
-						<input v-model="newItemTitle" class="input" type="text" />
-					</div>
-				</div>
-
-				<div class="field">
-					<label class="label">date</label>
-					<div class="control">
-						<input v-model="newItemStartDate" class="input" type="date" />
-					</div>
-				</div>
-<!--
-				<div class="field">
-					<label class="label">End date</label>
-					<div class="control">
-						<input v-model="newItemEndDate" class="input" type="date" />
-					</div>
-				</div>
--->
-				<button class="button is-info" @click="clickTestAddItem">Add Item</button>
-				<button class="button is-info" @click="toggleModal">Show Modal</button>
-			</div>
 		</div>
 		<div class="calendar-parent">
 			<calendar-view
@@ -138,8 +32,9 @@
 				@date-selection="setSelection"
 				@date-selection-finish="finishSelection"
 				@drop-on-date="onDrop"
-				@click-date="onClickDay"
-				@click-item="onClickItem"
+				
+				@click-date="toggleModal"
+				@click-item="toggleModal"
 			>
 				<template #header="{ headerProps }">
 					<calendar-view-header slot="header" :header-props="headerProps" @input="setShowDate" />
@@ -151,13 +46,11 @@
 <script lang="js">
 // Load CSS from the published version
 	import "../../node_modules/vue-simple-calendar/dist/style.css"
-	//import "../../node_modules/vue-simple-calendar/dist/css/default.css"
 	import { CalendarView, CalendarViewHeader, CalendarMath } from "vue-simple-calendar" // published version
 	import EventModal  from "@/components/EventModal.vue"
 	import {ref} from 'vue'
-	import { mapState, mapStores } from "pinia"
+	import { mapStores } from "pinia"
 	import { useMikeDbStore } from "@/stores/events"
-	//} from "../../vue-simple-calendar/src/components/bundle.js" // local repo
 	export default {
 		name: "App",
 		components: {
@@ -217,15 +110,15 @@
 				return o
 			},
 			...mapStores(useMikeDbStore),
-      items() {
-        return this.eventsStore.eventList?.slice()
-      }
+			items() {
+				return this.eventsStore.eventList?.slice()
+			}
 		},
 		mounted() {
 			this.newItemStartDate = CalendarMath.isoYearMonthDay(CalendarMath.today())
 			this.newItemEndDate = CalendarMath.isoYearMonthDay(CalendarMath.today())
 
-      this.eventsStore.getAllEvents()
+      		this.eventsStore.getAllEvents()
 		},
 		methods: {
 			periodChanged() {
@@ -267,20 +160,10 @@
 				item.originalItem.startDate = CalendarMath.addDays(item.startDate, eLength)
 				item.originalItem.endDate = CalendarMath.addDays(item.endDate, eLength)
 			},
-			clickTestAddItem() {
-        //FIXME: call Store action, and change store state instead
-				// this.items.push({
-				// 	startDate: this.newItemStartDate,
-				// 	endDate: this.newItemEndDate,
-				// 	title: this.newItemTitle,
-				// 	id: "e" + Math.random().toString(36).substr(2, 10),
-				// })
-				// this.message = "You added a calendar item!"
-			},
 			toggleModal() {
 				this.modalActive = !this.modalActive
 
-				console.log(this.eventsStore.eventList[2])
+				
 				//this.eventsStore.eventList.forEach((i) => {this.items.push(i)})
 				//FIXME: no need to do that if you change store state and your View "maps" that store in "computed"  this.items = this.eventsStore.eventList.slice()
 				// const item = {
@@ -315,10 +198,10 @@ body {
 	margin-right: auto;
 }
 .calendar-controls {
-	margin-right: 1rem;
+	/*margin-right: 1rem;
 	min-width: 14rem;
 	max-width: 14rem;
-	color:white;
+	color:white;*/
 }
 .calendar-parent {
 	display: flex;

@@ -6,7 +6,10 @@
             <!-- Modal Content  -->
             <!-- <slot /> -->
             <EventForm></EventForm>
-            <!--<button>Close</button>-->
+            <div class="button">
+              <button type="button" @click="closeForm">Close</button>
+            </div>
+           
           </div>
         </Transition>
       </div>
@@ -20,6 +23,11 @@
       EventForm
     },
     props: ["modalActive"]
+    ,methods:{
+      closeForm() {
+        this.$emit('close')
+      }
+    }
   };
 </script>
 <style scoped>
@@ -44,6 +52,22 @@
   background-color: #fff;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),0 2px 4px -1px rgba(0, 0, 0, 0.1),0 2px 4px -1px rgba(0, 0, 0, 0.06);
   padding: 64px 16px;
+}
+.button {
+  padding-top: 25px;
+  padding-right: 20px;
+  display: flex;
+  justify-content: right;
+}
+
+.modal-animation-enter-active,
+.modal-animation-leave-active{
+  transition: opacity 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+}
+
+.modal-animation-enter-from,
+.modal-animation-leave-to {
+  opacity: 0;
 }
 
 </style>

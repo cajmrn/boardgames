@@ -24,6 +24,13 @@ export const useMikeDbStore =  defineStore('events',{
                 console.log(response)
             })
             .catch((err) => console.log(err));
+        },
+        async getEvent(_id: any){
+            return await _mikedb.get(MIKEDB_EVENT_URL+_id)
+            .then(response =>{
+                console.log(response)
+            } )
+            .catch((err) => console.log(err))
         }
     }
 })

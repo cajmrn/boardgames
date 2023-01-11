@@ -1,7 +1,7 @@
 <template>
 <form @submit="add">
     <div>
-        <h1>Add New Game</h1>
+        <h1>Event Details</h1>
     </div>
     <div class="field">
         <label class="label">Game</label>
@@ -39,5 +39,13 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
+
+form {
+    border-bottom: 2px solid black;
+    padding-bottom: 15px;
+}
+.field{
+    padding-bottom: 10px;
+}
 </style>
