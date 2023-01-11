@@ -186,21 +186,6 @@
 				useDefaultTheme: true,
 				useHolidayTheme: true,
 				useTodayIcons: false,
-				items: [
-					/*{
-						id: "e3",
-						startDate: this.thisMonth(7, 9, 25),
-						endDate: this.thisMonth(10, 16, 30),
-						title: "Multi-day item with a long title and times",
-					},
-					{
-						id: "e4",
-						startDate: this.thisMonth(20),
-						title: "My Birthday!",
-						classes: "birthday",
-						url: "https://en.wikipedia.org/wiki/Birthday",
-					}*/
-				],
 			}
 		},
 		computed: {
@@ -231,17 +216,16 @@
 				o[CalendarMath.isoYearMonthDay(this.thisMonth(21))] = ["do-you-remember", "the-21st"]
 				return o
 			},
-			...mapStores(useMikeDbStore)
-			,...mapState(useMikeDbStore,['events'])
+			...mapStores(useMikeDbStore),
+      items() {
+        return this.eventsStore.eventList?.slice()
+      }
 		},
 		mounted() {
 			this.newItemStartDate = CalendarMath.isoYearMonthDay(CalendarMath.today())
 			this.newItemEndDate = CalendarMath.isoYearMonthDay(CalendarMath.today())
-			this.eventsStore.getAllEvents()
 
-			this.items = this.eventsStore.eventList.slice()
-			
-			
+      this.eventsStore.getAllEvents()
 		},
 		methods: {
 			periodChanged() {
@@ -284,20 +268,21 @@
 				item.originalItem.endDate = CalendarMath.addDays(item.endDate, eLength)
 			},
 			clickTestAddItem() {
-				this.items.push({
-					startDate: this.newItemStartDate,
-					endDate: this.newItemEndDate,
-					title: this.newItemTitle,
-					id: "e" + Math.random().toString(36).substr(2, 10),
-				})
-				this.message = "You added a calendar item!"
+        //FIXME: call Store action, and change store state instead
+				// this.items.push({
+				// 	startDate: this.newItemStartDate,
+				// 	endDate: this.newItemEndDate,
+				// 	title: this.newItemTitle,
+				// 	id: "e" + Math.random().toString(36).substr(2, 10),
+				// })
+				// this.message = "You added a calendar item!"
 			},
 			toggleModal() {
 				this.modalActive = !this.modalActive
 
 				console.log(this.eventsStore.eventList[2])
 				//this.eventsStore.eventList.forEach((i) => {this.items.push(i)})
-				this.items = this.eventsStore.eventList.slice()
+				//FIXME: no need to do that if you change store state and your View "maps" that store in "computed"  this.items = this.eventsStore.eventList.slice()
 				// const item = {
 				// 	startDate: this.eventsStore.eventList[2].date
 				// 	,title: this.eventsStore.eventList[2].game
