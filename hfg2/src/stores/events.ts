@@ -12,7 +12,7 @@ export const useMikeDbStore =  defineStore('events',{
     getters:{
         eventList: (state) => state._game_events
         ,event_id: (state) => state._event_id
-        ,eventById: (state) => {return (_id:any) => state._game_events.filter(_i => _i.id === _id)}
+        ,eventById: (state) => {return (_id:any) => state._game_events.filter(_i => _i['id'] === _id)}
         ,selected_event: (state) => state._selected_event
     },
     actions:{
@@ -41,7 +41,7 @@ export const useMikeDbStore =  defineStore('events',{
             this._event_id = _id
         }
         ,setClickedEvent(_id:any){
-            this._selected_event = this._game_events.filter(_i =>  _i.id === _id)
+            this._selected_event = this._game_events.filter(_i =>  _i['id'] === _id)
         }
     }
 })

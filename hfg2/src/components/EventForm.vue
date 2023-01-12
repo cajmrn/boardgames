@@ -16,8 +16,20 @@
         </div>
     </div>
     <button type="submit">Add</button>
-    <button type="button" @click="alertme">alert</button>
 </form>
+    <div class="experiences">
+        <div class="experiences-header">
+            <button type="button">Generate Experience</button>
+        </div>
+        <div class="experiences-list">
+            <ul>
+                <li>test</li>
+                <li>test2</li>
+                <li>test3</li>
+                <li>test4</li>
+            </ul>
+        </div>
+    </div>
 </template>
 <script>
 import { useMikeDbStore } from "@/stores/events"
@@ -52,5 +64,10 @@ form {
 }
 .field{
     padding-bottom: 10px;
+}
+.experiences-header{
+    display:flex;
+    justify-content: right;
+    padding-top: 15px;
 }
 </style>

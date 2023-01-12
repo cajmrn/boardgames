@@ -191,12 +191,13 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 }
+/*
 .calendar-controls {
-	/*margin-right: 1rem;
+	margin-right: 1rem;
 	min-width: 14rem;
 	max-width: 14rem;
-	color:white;*/
-}
+	color:white;
+}*/
 .calendar-parent {
 	display: flex;
 	flex-direction: column;
