@@ -6,7 +6,7 @@
     <div class="field">
         <label class="label">Game</label>
         <div class="control">
-            <input v-model="eventName" class="input" type="text" />
+            <input v-model="eventName" class="input" type="text"/>
         </div>
     </div>
     <div class="field">
