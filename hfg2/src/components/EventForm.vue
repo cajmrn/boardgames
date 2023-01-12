@@ -39,7 +39,7 @@ export default {
         ,alertme(){
             console.log(this.eventsStore.event_id)
             console.log(this.eventsStore.eventById(this.eventsStore.event_id))
-            console.log(this.eventsStore.selected_event)1
+            console.log(this.eventsStore.selected_event);
         }
     }
 }
