@@ -16,6 +16,7 @@
         </div>
     </div>
     <button type="submit">Add</button>
+    <button type="button" @click="alertme">alert</button>
 </form>
 </template>
 <script>
@@ -25,16 +26,20 @@ export default {
     data(){
         return{
             eventName:""
-            ,eventDate: ""
+            ,eventDate:""
         }   
-    },
-    computed:{
+    }
+    ,computed:{
         ...mapStores(useMikeDbStore)
-		,...mapState(useMikeDbStore,['events'])
     }
     ,methods:{
         add() {
             this.eventsStore.postNewEvent({"startDate":this.eventDate, "title":this.eventName, "attendees":[0,1,2,3]})
+        }
+        ,alertme(){
+            console.log(this.eventsStore.event_id)
+            console.log(this.eventsStore.eventById(this.eventsStore.event_id))
+            console.log(this.eventsStore.selected_event)1
         }
     }
 }
