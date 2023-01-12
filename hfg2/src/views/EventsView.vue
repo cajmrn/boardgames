@@ -32,9 +32,8 @@
 				@date-selection="setSelection"
 				@date-selection-finish="finishSelection"
 				@drop-on-date="onDrop"
-				
-				@click-date="toggleModal"
-				@click-item="toggleModal"
+				@click-date="onClickDay"
+				@click-item="onClickItem"
 			>
 				<template #header="{ headerProps }">
 					<calendar-view-header slot="header" :header-props="headerProps" @input="setShowDate" />
@@ -133,14 +132,20 @@
 				return new Date(t.getFullYear(), t.getMonth(), d, h || 0, m || 0)
 			},
 			onClickDay(d) {
+				
 				this.selectionStart = null
 				this.selectionEnd = null
 				this.message = `You clicked: ${d.toLocaleDateString()}`
+				this.toggleModal()
 			},
 			onClickItem(e) {
 				this.message = `You clicked: ${e.title}`
+				this.eventsStore.setEventId(e.id)
+				this.eventsStore.setClickedEvent(e.id)
+				this.toggleModal()
 			},
 			setShowDate(d) {
+				
 				this.message = `Changing calendar view to ${d.toLocaleDateString()}`
 				this.showDate = d
 			},
@@ -162,17 +167,6 @@
 			},
 			toggleModal() {
 				this.modalActive = !this.modalActive
-
-				
-				//this.eventsStore.eventList.forEach((i) => {this.items.push(i)})
-				//FIXME: no need to do that if you change store state and your View "maps" that store in "computed"  this.items = this.eventsStore.eventList.slice()
-				// const item = {
-				// 	startDate: this.eventsStore.eventList[2].date
-				// 	,title: this.eventsStore.eventList[2].game
-				// 	,id: this.eventsStore.eventList[2].id
-				// }
-				// this.items.push(item)
-				//console.log(this.items)
 			}
 		},
 	}
