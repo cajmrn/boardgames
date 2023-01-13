@@ -132,14 +132,15 @@
 				return new Date(t.getFullYear(), t.getMonth(), d, h || 0, m || 0)
 			},
 			onClickDay(d) {
-				
 				this.selectionStart = null
 				this.selectionEnd = null
 				this.message = `You clicked: ${d.toLocaleDateString()}`
+				this.eventsStore.resetClickedEvent()
 				this.toggleModal()
 			},
 			onClickItem(e) {
 				this.message = `You clicked: ${e.title}`
+				this.eventsStore.resetClickedEvent()
 				this.eventsStore.setEventId(e.id)
 				this.eventsStore.setClickedEvent(e.id)
 				this.toggleModal()

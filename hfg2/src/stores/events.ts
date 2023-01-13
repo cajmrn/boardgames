@@ -41,7 +41,10 @@ export const useMikeDbStore =  defineStore('events',{
             this._event_id = _id
         }
         ,setClickedEvent(_id:any){
-            this._selected_event = this._game_events.filter(_i =>  _i['id'] === _id)
+            this._selected_event = this._game_events.filter(_i =>  _i['id'] === _id)[0]
+        }
+        ,resetClickedEvent(){
+            this._selected_event = {}
         }
     }
 })

@@ -4,18 +4,25 @@
         <h1>Event Details</h1>
     </div>
     <div class="field">
+        <label class="label">Event Title</label>
+        <div class="control">
+            <input v-model="eventDetails.title" class="input" type="text"/>
+        </div>
+    </div>
+    <div class="field">
         <label class="label">Game</label>
         <div class="control">
-            <input v-model="eventName" class="input" type="text"/>
+            <input v-model="eventDetails.game" class="input" type="text" />
         </div>
     </div>
     <div class="field">
         <label class="label">Date</label>
         <div class="control">
-            <input v-model="eventDate" class="input" type="date" />
+            <input v-model="eventDetails.startDate" class="input" type="date" />
         </div>
     </div>
     <button type="submit">Add</button>
+    <button type="button" @click="alertme">Alert</button>
 </form>
     <div class="experiences">
         <div class="experiences-header">
@@ -33,20 +40,32 @@
 </template>
 <script>
 import { useMikeDbStore } from "@/stores/events"
-import { mapStores, mapState } from "pinia";
+import { mapStores } from "pinia";
+
+const emptyevent = {
+    "startDate": ""
+    ,"game": ""
+    ,"title":""
+}
 export default {
     data(){
         return{
-            eventName:""
-            ,eventDate:""
+            eventDetails: {}
         }   
+    }
+    ,mounted(){
+        Object.assign(this.eventDetails, emptyevent || {})
     }
     ,computed:{
         ...mapStores(useMikeDbStore)
+        ,eventDetails(){
+            return this.eventsStore.selected_event
+        }
     }
     ,methods:{
         add() {
-            this.eventsStore.postNewEvent({"startDate":this.eventDate, "title":this.eventName, "attendees":[0,1,2,3]})
+            console.log(this.title)
+            this.eventsStore.postNewEvent({"startDate":this.eventDetails.startDate, "title":this.eventDetails.title, "attendees":[0,1,2,3]})
         }
         ,alertme(){
             console.log(this.eventsStore.event_id)
@@ -64,6 +83,9 @@ form {
 }
 .field{
     padding-bottom: 10px;
+}
+.input{
+    width: 100%;
 }
 .experiences-header{
     display:flex;
