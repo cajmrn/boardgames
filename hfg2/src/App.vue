@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <!-- <header>
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125"/>
 
     <div class="wrapper">
@@ -11,19 +11,43 @@
       </nav>
     </div>
   </header>
+  <RouterView class="content"/> -->
+  <v-app :theme="theme">
+    <v-app-bar>
+      <v-spacer></v-spacer>
+      <v-btn
+        :prepend-icon="theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"
+        @click="onClick"
+      >Toggle Theme</v-btn>
+    </v-app-bar>
 
-  <RouterView class="content"/>
+    <v-main>
+      <v-container>Content area</v-container>
+    </v-main>
+  </v-app>
+
 </template>
 
 <script lang="ts">
-import {RouterLink, RouterView} from 'vue-router'
+ 
+  import {RouterLink, RouterView} from 'vue-router'
 
-export default {
-  components: {
-    RouterLink,
-    RouterView,
+  export default {
+    data(){
+      return{
+        theme:""
+      }
+    }
+    ,components: {
+      RouterLink,
+      RouterView,
+    }
+    ,methods:{
+      onClick() {
+       this.theme = this.theme === 'light' ? 'dark' : 'light'
+      }
+    }
   }
-}
 </script>
 
 <style scoped>

@@ -3,6 +3,7 @@
     <h1>No one's Home yet</h1>
     <p>Just look at <RouterLink to="/games">Games</RouterLink> for now.</p>
   </div>
+ 
 </template>
 
 <script lang="ts">
