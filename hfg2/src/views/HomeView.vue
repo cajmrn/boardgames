@@ -1,9 +1,9 @@
 <template>
-  <div class="home">
+  <!-- <div class="home">
     <h1>No one's Home yet</h1>
     <p>Just look at <RouterLink to="/games">Games</RouterLink> for now.</p>
-  </div>
- 
+  </div> -->
+  
 </template>
 
 <script lang="ts">

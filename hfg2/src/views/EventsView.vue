@@ -13,7 +13,7 @@
 				:items="items"
 				:show-date="showDate"
 				:time-format-options="{ hour: 'numeric', minute: '2-digit' }"
-				:enable-drag-drop="true"
+				:enable-drag-drop="false"
 				:disable-past="disablePast"
 				:disable-future="disableFuture"
 				:show-times="showTimes"
@@ -77,7 +77,7 @@
 				newItemEndDate: "",
 				useDefaultTheme: true,
 				useHolidayTheme: true,
-				useTodayIcons: false,
+				useTodayIcons: true,
 			}
 		},
 		computed: {

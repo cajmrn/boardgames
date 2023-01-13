@@ -7,9 +7,8 @@
             <!-- <slot /> -->
             <EventForm></EventForm>
             <div class="button">
-              <button type="button" @click="closeForm">Close</button>
+              <v-btn block type="button" @click="closeForm">Close</v-btn>
             </div>
-           
           </div>
         </Transition>
       </div>
@@ -47,17 +46,11 @@
 }
 .event-modal-inner{
   position: relative;
-  max-width: 640px;
+  max-width: 720px;
   width: 80%;
   background-color: #fff;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),0 2px 4px -1px rgba(0, 0, 0, 0.1),0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  padding: 64px 16px;
-}
-.button {
-  padding-top: 25px;
-  padding-right: 20px;
-  display: flex;
-  justify-content: right;
+  padding: 16px 16px;
 }
 
 .modal-animation-enter-active,

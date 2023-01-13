@@ -1,4 +1,80 @@
 <template>
+<v-form @submit="add">
+    <v-container>
+        <v-row>
+            <h3>Event Details</h3>
+        </v-row>
+        <v-row>
+            <v-col cols="12" md="12">
+                <v-text-field
+                v-model="eventDetails.title"
+                label="title"
+                required
+                >
+                </v-text-field>
+                <v-row>
+                    <v-col cols="6">
+                        <v-text-field
+                            v-model="eventDetails.game"
+                            label="Game"
+                            required
+                        ></v-text-field>
+                    </v-col>
+                    <v-col cols="6">
+                        <v-text-field
+                            v-model="eventDetails.startDate"
+                            label="Date"
+                            required
+                            type="date"
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="4">
+                        <v-text-field
+                            label="Base Exp"
+                        >
+                        </v-text-field>
+                    </v-col>
+                    <v-col cols="4">
+                        <v-text-field
+                            label="Win Exp"
+                        >
+                        </v-text-field>
+                    </v-col>
+                    <v-col cols="4">
+                        <v-text-field
+                            label="Loss Exp"
+                        >
+                        </v-text-field>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="10"></v-col>
+                    <v-col cols="1">
+                        <v-btn type="submit">
+                        Add
+                        </v-btn>
+                    </v-col>
+                </v-row>
+            </v-col>
+            <v-divider></v-divider>
+        </v-row>
+        <v-row>
+            <v-col cols="8">
+                <p>No Experiences yet!</p>
+            </v-col>
+            <v-col cols="4" md="4">
+                <RouterLink to="/experiences">
+                    <v-btn block>Generate Experience</v-btn>
+                </RouterLink>
+            </v-col>        
+        </v-row>
+    </v-container>
+    
+</v-form>
+
+<!---
 <form @submit="add">
     <div>
         <h1>Event Details</h1>
@@ -38,7 +114,7 @@
                 <li>test4</li>
             </ul>
         </div>
-    </div>
+    </div> -->
 </template>
 <script>
 import { useMikeDbStore } from "@/stores/events"
@@ -71,19 +147,4 @@ export default {
 </script>
 <style scoped>
 
-form {
-    border-bottom: 2px solid black;
-    padding-bottom: 15px;
-}
-.field{
-    padding-bottom: 10px;
-}
-.input{
-    width: 100%;
-}
-.experiences-header{
-    display:flex;
-    justify-content: right;
-    padding-top: 15px;
-}
 </style>
