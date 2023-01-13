@@ -26,8 +26,10 @@
 </form>
     <div class="experiences">
         <div class="experiences-header">
-            <button type="button">Generate Experience</button>
-        </div>
+            <RouterLink to="/experiences">
+                <button type="button">Generate Experience</button>
+            </RouterLink>
+        </div>    
         <div class="experiences-list">
             <ul>
                 <li>test</li>
@@ -42,19 +44,11 @@
 import { useMikeDbStore } from "@/stores/events"
 import { mapStores } from "pinia";
 
-const emptyevent = {
-    "startDate": ""
-    ,"game": ""
-    ,"title":""
-}
 export default {
     data(){
         return{
             eventDetails: {}
         }   
-    }
-    ,mounted(){
-        Object.assign(this.eventDetails, emptyevent || {})
     }
     ,computed:{
         ...mapStores(useMikeDbStore)
