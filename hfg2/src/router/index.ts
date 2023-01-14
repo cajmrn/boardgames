@@ -14,7 +14,7 @@ const router = createRouter({
       path: '/games',
       name: 'games',
       // Lazy-loaded when the route is visited.
-      component: () => import('../views/GamesView.vue')
+      component: () => import('@/views/GamesView.vue')
     },
     {
       path: '/events',
@@ -30,6 +30,11 @@ const router = createRouter({
       path: '/experiences',
       name: 'experiences',
       component: () => import('../views/ExperiencesView.vue')
+    },
+    {
+      path: '/games_v2',
+      name: 'games_v2',
+      component: () => import('../views/GamesV2View.vue')
     }
   ]
 })
