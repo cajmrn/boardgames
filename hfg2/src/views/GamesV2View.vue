@@ -1,239 +1,57 @@
 <template>
     <v-container>
         <v-row>
-            <v-col cols="12" md="4">
-                <v-card
-                    class="mx-auto"
-                    max-width="240"
-                    rounded="0"
-                    variant="outlined"
-                    >
-                    <v-img height="100%" cover>
-                        <v-avatar
-                            color="grey"
-                            size="150"
-                            rounded="0"
-                        >
-                            <v-img cover src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
-                        </v-avatar>
-                        <v-list-item
-                            class="text-white"
-                            title="Marcus Obrien"
-                            subtitle="Network Engineer"
-                        ></v-list-item>
-                    </v-img>
-                </v-card>
-            </v-col>
-            <v-col cols="12" md="4">
-                <v-card
-                    class="mx-auto"
-                    max-width="240"
-                    rounded="0"
-                    variant="outlined"
-                >
-                    <v-img height="100%" cover>
-                        <v-avatar
-                            color="grey"
-                            size="150"
-                            rounded="0"
-                        >
-                            <v-img cover src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
-                        </v-avatar>
-                        <v-list-item
-                            class="text-white"
-                            title="Marcus Obrien"
-                            subtitle="Network Engineer"
-                        ></v-list-item>
-                    </v-img>
-                </v-card>
-            </v-col>
-            <v-col cols="12" md="4">
-                <v-card
-                    class="mx-auto"
-                    max-width="240"
-                    rounded="0"
-                    variant="outlined"
-                >
-                    <v-img height="100%" cover>
-                        <v-avatar
-                            color="grey"
-                            size="150"
-                            rounded="0"
-                        >
-                            <v-img cover src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
-                        </v-avatar>
-                        <v-list-item
-                            class="text-white"
-                            title="Marcus Obrien"
-                            subtitle="Network Engineer"
-                        ></v-list-item>
-                    </v-img>
-                </v-card>
-            </v-col>
-            <v-col cols="12" md="4">
-                <v-card
-                    class="mx-auto"
-                    max-width="240"
-                    rounded="0"
-                    variant="outlined"
-                >
-                    <v-img height="100%" cover>
-                        <v-avatar
-                            color="grey"
-                            size="150"
-                            rounded="0"
-                        >
-                            <v-img cover src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
-                        </v-avatar>
-                        <v-list-item
-                            class="text-white"
-                            title="Marcus Obrien"
-                            subtitle="Network Engineer"
-                        ></v-list-item>
-                    </v-img>
-                </v-card>
-            </v-col>
-            <v-col cols="12" md="4">
-                <v-card
-                    class="mx-auto"
-                    max-width="240"
-                    rounded="0"
-                    variant="outlined"
-                >
-                    <v-img height="100%" cover>
-                        <v-avatar
-                            color="grey"
-                            size="150"
-                            rounded="0"
-                        >
-                            <v-img cover src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
-                        </v-avatar>
-                        <v-list-item
-                            class="text-white"
-                            title="Marcus Obrien"
-                            subtitle="Network Engineer"
-                        ></v-list-item>
-                    </v-img>
-                </v-card>
-            </v-col>
-            <v-col cols="12" md="4">
-                <v-card
-                    class="mx-auto"
-                    max-width="240"
-                    rounded="0"
-                    variant="outlined"
-                >
-                    <v-img height="100%" cover>
-                        <v-avatar
-                            color="grey"
-                            size="150"
-                            rounded="0"
-                        >
-                            <v-img cover src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
-                        </v-avatar>
-                        <v-list-item
-                            class="text-white"
-                            title="Marcus Obrien"
-                            subtitle="Network Engineer"
-                        ></v-list-item>
-                    </v-img>
-                </v-card>
-            </v-col>
-            <v-col cols="12" md="4">
-                <v-card
-                    class="mx-auto"
-                    max-width="240"
-                    rounded="0"
-                    variant="outlined"
-                >
-                    <v-img height="100%" cover>
-                        <v-avatar
-                            color="grey"
-                            size="150"
-                            rounded="0"
-                        >
-                            <v-img cover src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
-                        </v-avatar>
-                        <v-list-item
-                            class="text-white"
-                            title="Marcus Obrien"
-                            subtitle="Network Engineer"
-                        ></v-list-item>
-                    </v-img>
-                </v-card>
-            </v-col>
-            <v-col cols="12" md="4">
-                <v-card
-                    class="mx-auto"
-                    max-width="240"
-                    rounded="0"
-                    variant="outlined"
-                >
-                    <v-img height="100%" cover>
-                        <v-avatar
-                            color="grey"
-                            size="150"
-                            rounded="0"
-                        >
-                            <v-img cover src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
-                        </v-avatar>
-                        <v-list-item
-                            class="text-white"
-                            title="Marcus Obrien"
-                            subtitle="Network Engineer"
-                        ></v-list-item>
-                    </v-img>
-                </v-card>
-            </v-col>
-            <v-col cols="12" md="4">
-                <v-card
-                    class="mx-auto"
-                    max-width="240"
-                    rounded="0"
-                    variant="outlined"
-                >
-                    <v-img height="100%" cover>
-                        <v-avatar
-                            color="grey"
-                            size="150"
-                            rounded="0"
-                        >
-                            <v-img cover src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
-                        </v-avatar>
-                        <v-list-item
-                            class="text-white"
-                            title="Marcus Obrien"
-                            subtitle="Network Engineer"
-                        ></v-list-item>
-                    </v-img>
-                </v-card>
-            </v-col>
-            <v-col cols="12" md="4">
-                <v-card
-                    class="mx-auto"
-                    max-width="240"
-                    rounded="0"
-                    variant="outlined"
-                >
-                    <v-img height="100%" cover>
-                        <v-avatar
-                            color="grey"
-                            size="150"
-                            rounded="0"
-                        >
-                            <v-img cover src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
-                        </v-avatar>
-                        <v-list-item
-                            class="text-white"
-                            title="Marcus Obrien"
-                            subtitle="Network Engineer"
-                        ></v-list-item>
-                    </v-img>
-                </v-card>
-            </v-col>
+            <GameV2Item v-for="game in games" key="game.bggId" :game="game"/>
         </v-row>
-        
-        
+        <LoadingComp v-if="isLoading || isDone" :isDone="isDone"/>
         <v-divider></v-divider>
     </v-container>
 </template>
+<script lang="ts">
+    import {useGamesStore} from "@/stores/games";
+    import GameV2Item from "@/components/GameV2Item.vue";
+    import PageComp from "@/components/PageComp.vue";
+    import {mapState, mapStores} from "pinia";
+    import LoadingComp from "@/components/LoadingComp.vue";
+
+    export default {
+    data() {
+        return {
+        isLoading: false
+        }
+    },
+    components: {
+        GameV2Item,
+        PageComp,
+        LoadingComp
+    },
+    computed: {
+        ...mapStores(useGamesStore),
+        ...mapState(useGamesStore, ['games', 'isDone'])
+    },
+    methods: {
+        handleScroll(e: any) {
+        const element = this.$refs.scrollComponent as HTMLElement;
+        if (element.getBoundingClientRect().bottom < window.innerHeight && !this.isLoading && !this.isDone) {
+            this.isLoading = true;
+            this.gamesStore.fetchMoreGames()
+                .finally(() => {
+                this.isLoading = false;
+                });
+        }
+        }
+    },
+    mounted() {
+        window.addEventListener("scroll", this.handleScroll)
+
+        this.isLoading = true;
+        this.gamesStore.fetchGames()
+            .finally(() => {
+            this.isLoading = false;
+            });
+    },
+    unmounted() {
+        window.removeEventListener("scroll", this.handleScroll)
+    }
+    }
+</script>
