@@ -11,29 +11,30 @@
       show-arrows
     >
       <v-slide-group-item
-        v-for="n in 4"
-        :key="n"
+        v-for="_commish in commissioners"
+        :key="_commish"
         v-slot="{ isSelected, toggle, selectedClass }"
       >
+        <!-- @click="toggle"-->
         <v-card
           color="grey-lighten-1"
           :class="['ma-4', selectedClass]"
           height="250"
           width="150"
-          @click="toggle"
+          @click="setSelectedCommissioner(_commish),toggle()"
         >
         <v-img height="100%" cover>
                 <v-avatar
                     color="grey"
-                    size="180"
+                    size="150"
                     rounded="0"
                 >
-                    <v-img cover src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
+                    <v-img cover :src="_commish.thumbnail"></v-img>
                 </v-avatar>
                 <v-list-item
                     class="text-white"
-                    title="Marcus Obrien"
-                    subtitle="Network Engineer"
+                    :title="_commish.name"
+                    :subtitle="_commish.rank"
                 ></v-list-item>
             </v-img>  
           <div class="d-flex fill-height align-center justify-center">
@@ -49,7 +50,7 @@
         </v-card>
       </v-slide-group-item>
     </v-slide-group>
-
+    <!--v-if="model != null"-->
     <v-expand-transition>
       <v-sheet
         v-if="model != null"
@@ -63,17 +64,33 @@
   </v-sheet>
 </template>
 <script>
-import CommissionerDetail from './CommissionerDetail.vue';
+  import CommissionerDetail from './CommissionerDetail.vue';
+  import { useMikeDbSCommissionertore } from '@/stores/commissioners';
+  import { mapStores } from 'pinia';
 
-    export default{
-        components:{
-    CommissionerDetail
-}
-        ,data(){
-            return{
-                model: null
-
-            }
+  export default{
+    components:{
+      CommissionerDetail
+    }
+    ,mounted(){
+      this.commissionersStore.getAllCommissioners()
+    }
+    ,data(){
+        return{
+            model: null
         }
     }
+    ,computed:{
+      ...mapStores(useMikeDbSCommissionertore)
+      ,commissioners(){
+        return this.commissionersStore.commissionersList?.slice()
+      }
+    }
+    ,methods:{
+      setSelectedCommissioner(_commish){
+        this.commissionersStore.setClickedCommissioner(_commish.id)
+        console.log(this.commissionersStore.selected_commissioner)
+      }
+    }
+  }
 </script>

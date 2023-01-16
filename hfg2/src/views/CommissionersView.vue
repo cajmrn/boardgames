@@ -3,7 +3,6 @@
         <v-divider></v-divider>
         <v-row>
             <CommissionerSummary></CommissionerSummary>
-           
         </v-row>  
         <v-divider></v-divider>
     </v-container>

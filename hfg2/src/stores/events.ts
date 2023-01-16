@@ -1,7 +1,7 @@
 import {defineStore} from 'pinia'
 import {_mikedb, MIKEDB_EVENT_URL} from "@/stores/_mikedb";
 
-export const useMikeDbStore =  defineStore('events',{
+export const useMikeDbEventStore =  defineStore('events',{
     state: () => {
         return {
             _game_events : []

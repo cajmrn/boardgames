@@ -73,7 +73,7 @@
     </v-form>
 </template>
 <script>
-import { useMikeDbStore } from "@/stores/events"
+import { useMikeDbEventStore } from "@/stores/events"
 import { mapStores } from "pinia";
 import ExperienceSummaryList  from "./ExperienceSummaryList.vue"
 
@@ -81,13 +81,8 @@ export default {
     components:{
         ExperienceSummaryList
     }
-    ,data(){
-        return{
-            eventDetails: {}
-        }   
-    }
     ,computed:{
-        ...mapStores(useMikeDbStore)
+        ...mapStores(useMikeDbEventStore)
         ,eventDetails(){
             return this.eventsStore.selected_event
         }

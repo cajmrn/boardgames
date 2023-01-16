@@ -49,7 +49,7 @@
 	import EventModal  from "@/components/EventModal.vue"
 	import {ref} from 'vue'
 	import { mapStores } from "pinia"
-	import { useMikeDbStore } from "@/stores/events"
+	import { useMikeDbEventStore } from "@/stores/events"
 	export default {
 		name: "App",
 		components: {
@@ -108,7 +108,7 @@
 				o[CalendarMath.isoYearMonthDay(this.thisMonth(21))] = ["do-you-remember", "the-21st"]
 				return o
 			},
-			...mapStores(useMikeDbStore),
+			...mapStores(useMikeDbEventStore),
 			items() {
 				return this.eventsStore.eventList?.slice()
 			}
