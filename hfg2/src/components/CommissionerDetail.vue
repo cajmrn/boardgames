@@ -13,7 +13,6 @@
                     <v-card-text>{{ selected_commissioner.note }}</v-card-text>
                 </v-card>
             </v-col>
-
         </v-row>
         <v-row >
             <v-col cols="3">
