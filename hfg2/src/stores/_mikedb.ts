@@ -6,6 +6,8 @@ export const MIKEDB_EXPERIENCE_URL = 'http://gerdov.com/mike-db/api/hfg2DB/exper
 export const MIKEDB_RANK_URL = 'http://gerdov.com/mike-db/api/hfg2DB/ranks/';
 export const MIKEDB_VENUE_URL = 'http://gerdov.com/mike-db/api/hfg2DB/venues/';
 
+//axios.defaults.baseURL = 'http://gerdov.com/mike-db/api/hfg2DB/'
+
 export const _mikedb = axios.create({
     headers: {
         'Content-Type': 'application/json'

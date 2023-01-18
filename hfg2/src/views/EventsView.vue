@@ -178,7 +178,7 @@ html,
 body {
 	height: 100%;
 	margin: 0;
-	color: black;
+	/*color: black;*/
 	/*background-color: #f7fcff;*/
 }
 #cal {
@@ -219,6 +219,7 @@ body {
 .theme-default .cv-item.birthday {
 	background-color: #e0f0e0;
 	border-color: #d7e7d7;
+	color: black;
 }
 .theme-default .cv-item.birthday::before {
 	content: "\1F382"; /* Birthday cake */
