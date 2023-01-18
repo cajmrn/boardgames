@@ -22,6 +22,9 @@
         </RouterLink>
       </v-btn>
       <v-spacer></v-spacer>
+      <v-btn @click="run_login">
+        login
+      </v-btn>
      <!-- <v-btn
         :prepend-icon="theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"
         @click="onClick"
@@ -29,6 +32,7 @@
     </v-app-bar>
     <v-main>
       <v-container>
+        
         <RouterView/>
       </v-container>
     </v-main>
@@ -54,6 +58,12 @@
     ,methods:{
       onClick() {
        this.theme = this.theme === 'light' ? 'dark' : 'light'
+      }
+      ,run_login() {
+        this.$auth0.loginWithRedirect()
+      }
+      ,run_logout() {
+        this.$auth0.logout({returnTo: window.location.origin})
       }
     }
   }
