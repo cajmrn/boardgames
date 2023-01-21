@@ -47,12 +47,6 @@
 			</v-col>
 		</v-row>
 	</v-container>
-	<!-- <div id="event-modal-outer">
-		<EventModal @close="toggleModal" :modalActive="modalActive">
-			<div class="modal-content">
-			</div>
-		</EventModal>
-	</div> -->
 	
 </template>
 <script lang="js">
@@ -90,7 +84,7 @@
 				newItemEndDate: "",
 				useDefaultTheme: false,
 				useHolidayTheme: true,
-				useTodayIcons: true
+				useTodayIcons: false
 			}
 		},
 		computed: {
@@ -149,17 +143,18 @@
 				this.selectionEnd = null
 				this.message = `You clicked: ${d.toLocaleDateString()}`
 				this.eventsStore.resetClickedEvent()
+				this.eventsStore.setClickedDay(d.toISOString().substring(0,10))
 				this.toggleModal()
 			},
 			onClickItem(e) {
 				this.message = `You clicked: ${e.title}`
+				console.log(`You clicked: ${e.title}`)
 				this.eventsStore.resetClickedEvent()
 				this.eventsStore.setEventId(e.id)
 				this.eventsStore.setClickedEvent(e.id)
 				this.toggleModal()
 			},
 			setShowDate(d) {
-				
 				this.message = `Changing calendar view to ${d.toLocaleDateString()}`
 				this.showDate = d
 			},
@@ -180,9 +175,7 @@
 				item.originalItem.endDate = CalendarMath.addDays(item.endDate, eLength)
 			},
 			toggleModal() {
-				this.modalActive = !this.modalActive
-				console.log("in toggleModal: modalActive: "+ this.modalActive)
-				
+				this.modalActive = !this.modalActive				
 			}
 		},
 	}

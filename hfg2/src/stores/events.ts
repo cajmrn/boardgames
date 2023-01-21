@@ -7,6 +7,7 @@ export const useMikeDbEventStore =  defineStore('events',{
             _game_events : []
             ,_event_id : null
             ,_selected_event: {}
+            ,_selected_day: {}
         }
     },
     getters:{
@@ -14,6 +15,7 @@ export const useMikeDbEventStore =  defineStore('events',{
         ,event_id: (state) => state._event_id
         ,eventById: (state) => {return (_id:any) => state._game_events.filter(_i => _i['id'] === _id)}
         ,selected_event: (state) => state._selected_event
+        ,selected_day: (state) => state._selected_day
     },
     actions:{
         async getAllEvents(){
@@ -39,6 +41,14 @@ export const useMikeDbEventStore =  defineStore('events',{
         }
         ,setEventId(_id:any){
             this._event_id = _id
+        }
+        ,resetClickedDay(){
+            this._selected_day = {}
+        }
+        ,setClickedDay(_d:any){
+            this._selected_day = {
+                "startDate":_d
+            }
         }
         ,setClickedEvent(_id:any){
             this._selected_event = this._game_events.filter(_i =>  _i['id'] === _id)[0]

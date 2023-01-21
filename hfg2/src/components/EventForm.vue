@@ -1,5 +1,5 @@
 <template>
-    <v-form @submit="add">
+    <v-form @submit.prevent="add">
         <v-container>
             <v-row>
                 <v-col cols="12">
@@ -24,7 +24,7 @@
                         </v-col>
                         <v-col cols="6">
                             <v-text-field
-                                v-model="eventDetails.startDate"
+                                v-model="isDay.startDate"
                                 label="Date"
                                 required
                                 type="date"
@@ -88,11 +88,23 @@ export default {
         ,eventDetails(){
             return this.eventsStore.selected_event
         }
+        ,selectedDay(){
+            return this.eventsStore.selected_day
+        }
+        ,isDay(){
+            return this.eventDetails.startDate ? this.eventDetails:this.selectedDay
+        }
     }
     ,methods:{
         add() {
-            console.log(this.title)
-            this.eventsStore.postNewEvent({"startDate":this.eventDetails.startDate, "title":this.eventDetails.title, "attendees":[0,1,2,3]})
+            console.log("selected day" + this.selectedDay.startDate)
+            console.log(this.eventDetails.startDate)
+            
+            // const new_event = {
+            //     startDate:this.
+
+            // }
+            //this.eventsStore.postNewEvent({"startDate":this.eventDetails.startDate, "title":this.eventDetails.title, "attendees":[0,1,2,3]})
         }
         ,alertme(){
             console.log(this.eventsStore.event_id)
