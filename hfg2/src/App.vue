@@ -22,9 +22,11 @@
         </RouterLink>
       </v-btn>
       <v-spacer></v-spacer>
-      <v-btn @click="run_login">
+      
+      <v-btn v-if="!isAuthenticated" @click="run_login">
         login
       </v-btn>
+      <v-btn v-else @click="run_logout">logout</v-btn>
      <!-- <v-btn
         :prepend-icon="theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'"
         @click="onClick"
@@ -32,7 +34,6 @@
     </v-app-bar>
     <v-main>
       <v-container>
-        
         <RouterView/>
       </v-container>
     </v-main>
@@ -43,12 +44,15 @@
 
 <script lang="ts">
  
-  import {RouterLink, RouterView} from 'vue-router'
+import {RouterLink, RouterView} from 'vue-router'
 
   export default {
     data(){
       return{
         theme:""
+        ,user: this.$auth0.user
+        ,isAuthenticated: this.$auth0.isAuthenticated
+        ,isLoading: this.$auth0.isLoading
       }
     }
     ,components: {

@@ -1,27 +1,50 @@
 <template>
+    <v-row justify="center">
+      <v-col cols="12">
+        <v-dialog v-model="dialog" persistent>
+          <v-container class="rounded-lg">
+            <EventForm style="background-color: #4E4F50; border:2px solid white;"></EventForm>
+            <v-row>
+              <v-col cols="12" class="text-right">
+                <v-btn variant="outlined" block style="background-color: #4E4F50;" @click="closeForm">Close</v-btn>
+              </v-col>
+            </v-row>
+        </v-container>
+        </v-dialog>
+      </v-col>
+    </v-row>
+    
+<!-- 
+
+
     <Transition name="modal-animation">
       <div v-show="modalActive" class="event-modal">
         <Transition name="modal-animation-inner">
-          <div v-show="modalActive" class="event-modal-inner">
+          <div v-show="modalActive" class="event-modal-inner"> -->
             <!-- Modal Content  -->
             <!-- <slot /> -->
-            <EventForm></EventForm>
+            <!-- <EventForm></EventForm>
             <div class="button">
               <v-btn block type="button" @click="closeForm">Close</v-btn>
             </div>
           </div>
         </Transition>
       </div>
-    </Transition>
+    </Transition> -->
 </template>
 <script lang="ts">
   import EventForm from './EventForm.vue';
 
   export default {
-    components: {
+    computed:{
+      dialog(){
+        return this.modalActive
+      }
+    }
+    ,components: {
       EventForm
-    },
-    props: ["modalActive"]
+    }
+    ,props: ["modalActive"]
     ,methods:{
       closeForm() {
         this.$emit('close')
@@ -29,8 +52,8 @@
     }
   };
 </script>
-<style scoped>
-.event-modal {
+<style>
+/* .event-modal {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -61,6 +84,6 @@
 .modal-animation-enter-from,
 .modal-animation-leave-to {
   opacity: 0;
-}
+} */
 
 </style>

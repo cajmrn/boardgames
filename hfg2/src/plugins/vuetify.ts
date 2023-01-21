@@ -11,6 +11,15 @@ export default createVuetify({
   components,
   directives,
   theme:{
-    defaultTheme: 'dark'
+    defaultTheme: 'myCalendarTheme'
+    ,themes:{
+      myCalendarTheme:{
+        dark: true
+        ,colors:{
+          cvItem: '#222222'
+          ,overlayContent: '#4E4F50'
+        }
+      }
+    }
   }
 })

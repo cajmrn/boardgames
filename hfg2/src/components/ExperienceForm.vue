@@ -32,6 +32,11 @@
         </v-row>
         <v-row>
             <v-col cols="12">
+                <v-textarea label="Corrections"></v-textarea>
+            </v-col>
+        </v-row>
+        <v-row>
+            <v-col cols="12">
                 <v-textarea label="Strategy"></v-textarea>
             </v-col>
         </v-row>

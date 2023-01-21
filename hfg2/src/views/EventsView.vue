@@ -1,46 +1,59 @@
 <template>
-	<div id="event-modal-outer">
+	<v-container>
+		<v-row>
+			<v-col cols="12">
+				<EventModal @close="toggleModal" :modalActive="modalActive">
+				</EventModal>	
+			</v-col>
+		</v-row>
+		<v-row>
+			<v-col cols="12">
+				<div id="cal">		
+					<div class="calendar-controls">
+					</div>
+					<div class="calendar-parent">
+						<calendar-view
+							:items="items"
+							:show-date="showDate"
+							:time-format-options="{ hour: 'numeric', minute: '2-digit' }"
+							:enable-drag-drop="false"
+							:disable-past="disablePast"
+							:disable-future="disableFuture"
+							:show-times="showTimes"
+							:date-classes="myDateClasses"
+							:display-period-uom="displayPeriodUom"
+							:display-period-count="displayPeriodCount"
+							:starting-day-of-week="startingDayOfWeek"
+							:class="themeClasses"
+							:period-changed-callback="periodChanged"
+							:current-period-label="useTodayIcons ? 'icons' : ''"
+							:displayWeekNumbers="displayWeekNumbers"
+							:enable-date-selection="true"
+							:selection-start="selectionStart"
+							:selection-end="selectionEnd"
+							@date-selection-start="setSelection"
+							@date-selection="setSelection"
+							@date-selection-finish="finishSelection"
+							@drop-on-date="onDrop"
+							@click-date="onClickDay"
+							@click-item="onClickItem"
+						>
+							<template #header="{ headerProps }">
+								<calendar-view-header slot="header" :header-props="headerProps" @input="setShowDate" />
+							</template>
+						</calendar-view>
+					</div>
+				</div>
+			</v-col>
+		</v-row>
+	</v-container>
+	<!-- <div id="event-modal-outer">
 		<EventModal @close="toggleModal" :modalActive="modalActive">
 			<div class="modal-content">
 			</div>
 		</EventModal>
-	</div>
-	<div id="cal">		
-		<div class="calendar-controls">
-		</div>
-		<div class="calendar-parent">
-			<calendar-view
-				:items="items"
-				:show-date="showDate"
-				:time-format-options="{ hour: 'numeric', minute: '2-digit' }"
-				:enable-drag-drop="false"
-				:disable-past="disablePast"
-				:disable-future="disableFuture"
-				:show-times="showTimes"
-				:date-classes="myDateClasses"
-				:display-period-uom="displayPeriodUom"
-				:display-period-count="displayPeriodCount"
-				:starting-day-of-week="startingDayOfWeek"
-				:class="themeClasses"
-				:period-changed-callback="periodChanged"
-				:current-period-label="useTodayIcons ? 'icons' : ''"
-				:displayWeekNumbers="displayWeekNumbers"
-				:enable-date-selection="true"
-				:selection-start="selectionStart"
-				:selection-end="selectionEnd"
-				@date-selection-start="setSelection"
-				@date-selection="setSelection"
-				@date-selection-finish="finishSelection"
-				@drop-on-date="onDrop"
-				@click-date="onClickDay"
-				@click-item="onClickItem"
-			>
-				<template #header="{ headerProps }">
-					<calendar-view-header slot="header" :header-props="headerProps" @input="setShowDate" />
-				</template>
-			</calendar-view>
-		</div>
-	</div>
+	</div> -->
+	
 </template>
 <script lang="js">
 // Load CSS from the published version
@@ -75,9 +88,9 @@
 				newItemTitle: "",
 				newItemStartDate: "",
 				newItemEndDate: "",
-				useDefaultTheme: true,
+				useDefaultTheme: false,
 				useHolidayTheme: true,
-				useTodayIcons: true,
+				useTodayIcons: true
 			}
 		},
 		computed: {
@@ -89,7 +102,7 @@
 			},
 			themeClasses() {
 				return {
-					"theme-default": this.useDefaultTheme,
+					"theme-default": /*this.useDefaultTheme*/this.$vuetify.theme, 
 					"holiday-us-traditional": this.useHolidayTheme,
 					"holiday-us-official": this.useHolidayTheme,
 				}
@@ -168,19 +181,23 @@
 			},
 			toggleModal() {
 				this.modalActive = !this.modalActive
+				console.log("in toggleModal: modalActive: "+ this.modalActive)
+				
 			}
 		},
 	}
 </script>
 
 <style>
+/*@import '../assets/main.css';
+*/
+/*
 html,
 body {
 	height: 100%;
 	margin: 0;
-	/*color: black;*/
-	/*background-color: #f7fcff;*/
 }
+*/
 #cal {
 	display: flex;
 	flex-direction: row;
@@ -206,16 +223,18 @@ body {
 	overflow-x: hidden;
 	overflow-y: hidden;
 	max-height: 80vh;
-	background-color: white;
+	/*background-color: white;*/
 }
 /* For long calendars, ensure each week gets sufficient height. The body of the calendar will scroll if needed */
+/*
 .cv-wrapper.period-month.periodCount-2 .cv-week,
 .cv-wrapper.period-month.periodCount-3 .cv-week,
 .cv-wrapper.period-year .cv-week {
 	min-height: 6rem;
-}
+}*/
 /* These styles are optional, to illustrate the flexbility of styling the calendar purely with CSS. */
 /* Add some styling for items tagged with the "birthday" class */
+/*
 .theme-default .cv-item.birthday {
 	background-color: #e0f0e0;
 	border-color: #d7e7d7;
@@ -223,9 +242,10 @@ body {
 }
 .theme-default .cv-item.birthday::before {
 	content: "\1F382"; /* Birthday cake */
-	margin-right: 0.5em;
-}
+/*	margin-right: 0.5em;
+}*/
 /* The following classes style the classes computed in myDateClasses and passed to the component's dateClasses prop. */
+/*
 .theme-default .cv-day.ides {
 	background-color: #ffe0e0;
 }
@@ -238,5 +258,8 @@ body {
 .modal-content{
 	display: flex;
 	flex-direction: column;
+}*/
+.cv-item {
+	background-color: rgba(var(--v-theme-cvItem),1.0);
 }
 </style>

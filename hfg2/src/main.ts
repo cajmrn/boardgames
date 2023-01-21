@@ -7,7 +7,7 @@ import router from './router'
 import vuetify from './plugins/vuetify'
 
 
-import 'bootstrap/dist/css/bootstrap.min.css'
+/*import 'bootstrap/dist/css/bootstrap.min.css'*/
 import './assets/main.css'
 
 

@@ -2,7 +2,9 @@
     <v-form @submit="add">
         <v-container>
             <v-row>
-                <h3>Event Details</h3>
+                <v-col cols="12">
+                    <span class="text-h5">Event Details</span>
+                </v-col>
             </v-row>
             <v-row>
                 <v-col cols="12" md="12" >
@@ -57,7 +59,7 @@
                         </v-col>
                     </v-row>
                 </v-col>
-                <v-divider></v-divider>
+
             </v-row>
             <v-row>
                 <v-col cols="9">
@@ -100,6 +102,6 @@ export default {
     }
 }
 </script>
-<style scoped>
+<style>
 
 </style>
