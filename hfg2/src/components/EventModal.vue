@@ -1,36 +1,18 @@
 <template>
     <v-row justify="center">
       <v-col cols="12">
-        <v-dialog v-model="dialog" persistent>
+        <v-dialog v-model="dialog" theme="dark" persistent>
           <v-container class="rounded-lg">
-            <EventForm style="background-color: #4E4F50; border:2px solid white;"></EventForm>
+            <EventForm style="background-color: #4E4F50; border:2px solid rgb(33,33,33);"></EventForm>
             <v-row>
               <v-col cols="12" class="text-right">
-                <v-btn variant="outlined" block style="background-color: #4E4F50;" @click="closeForm">Close</v-btn>
+                <v-btn  block type="button" style="background-color: rgb(33,33,33);" @click="closeForm">Close</v-btn>
               </v-col>
             </v-row>
         </v-container>
         </v-dialog>
       </v-col>
     </v-row>
-    
-<!-- 
-
-
-    <Transition name="modal-animation">
-      <div v-show="modalActive" class="event-modal">
-        <Transition name="modal-animation-inner">
-          <div v-show="modalActive" class="event-modal-inner"> -->
-            <!-- Modal Content  -->
-            <!-- <slot /> -->
-            <!-- <EventForm></EventForm>
-            <div class="button">
-              <v-btn block type="button" @click="closeForm">Close</v-btn>
-            </div>
-          </div>
-        </Transition>
-      </div>
-    </Transition> -->
 </template>
 <script lang="ts">
   import EventForm from './EventForm.vue';

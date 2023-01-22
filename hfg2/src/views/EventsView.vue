@@ -182,15 +182,6 @@
 </script>
 
 <style>
-/*@import '../assets/main.css';
-*/
-/*
-html,
-body {
-	height: 100%;
-	margin: 0;
-}
-*/
 #cal {
 	display: flex;
 	flex-direction: row;
@@ -202,13 +193,6 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 }
-/*
-.calendar-controls {
-	margin-right: 1rem;
-	min-width: 14rem;
-	max-width: 14rem;
-	color:white;
-}*/
 .calendar-parent {
 	display: flex;
 	flex-direction: column;

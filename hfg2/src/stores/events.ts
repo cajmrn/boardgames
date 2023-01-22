@@ -48,6 +48,14 @@ export const useMikeDbEventStore =  defineStore('events',{
         ,setClickedDay(_d:any){
             this._selected_day = {
                 "startDate":_d
+                ,"exp":{
+                    "base":0
+                    ,"win":0
+                    ,"loss":0
+                }
+                ,"tgc_experiences":[]
+                ,"winner":0
+                ,"venue":0
             }
         }
         ,setClickedEvent(_id:any){
@@ -55,6 +63,9 @@ export const useMikeDbEventStore =  defineStore('events',{
         }
         ,resetClickedEvent(){
             this._selected_event = {}
+        }
+        ,get_today(){
+            return new Date().toISOString().substring(0,10)
         }
     }
 })
