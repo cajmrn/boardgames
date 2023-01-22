@@ -3,10 +3,16 @@
       <v-col cols="12">
         <v-dialog v-model="dialog" theme="dark" persistent>
           <v-container class="rounded-lg">
-            <EventForm style="background-color: #4E4F50; border:2px solid rgb(33,33,33);"></EventForm>
+            <EventForm 
+              style="background-color: #4E4F50; border:2px solid rgb(33,33,33);">
+              </EventForm>
             <v-row>
               <v-col cols="12" class="text-right">
-                <v-btn  block type="button" style="background-color: rgb(33,33,33);" @click="closeForm">Close</v-btn>
+                <v-btn  
+                  block 
+                  type="button" 
+                  style="background-color: rgb(33,33,33);" 
+                  @click="closeForm">Close</v-btn>
               </v-col>
             </v-row>
         </v-container>

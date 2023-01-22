@@ -8,14 +8,16 @@ export const useMikeDbEventStore =  defineStore('events',{
             ,_event_id : null
             ,_selected_event: {}
             ,_selected_day: {}
+            ,_created_event: {}
         }
-    },
-    getters:{
+    }
+    ,getters:{
         eventList: (state) => state._game_events
         ,event_id: (state) => state._event_id
         ,eventById: (state) => {return (_id:any) => state._game_events.filter(_i => _i['id'] === _id)}
         ,selected_event: (state) => state._selected_event
         ,selected_day: (state) => state._selected_day
+        ,created_event: (state) => state._created_event
     },
     actions:{
         async getAllEvents(){
@@ -28,7 +30,8 @@ export const useMikeDbEventStore =  defineStore('events',{
         async postNewEvent(_eventdetails: any) {
             return await _mikedb.post(MIKEDB_EVENT_URL,_eventdetails)
             .then(response => {
-                console.log(response)
+                console.log("response from events.ts", response)
+                this._created_event = response
             })
             .catch((err) => console.log(err));
         },
@@ -64,9 +67,12 @@ export const useMikeDbEventStore =  defineStore('events',{
         ,resetClickedEvent(){
             this._selected_event = {}
         }
+        ,resetCreatedEvent(){
+            this._created_event = {}
+        }
         ,get_today(){
             return new Date().toISOString().substring(0,10)
-        }
+        }   
     }
 })
 

@@ -1,5 +1,5 @@
 <template>
-    <v-form @submit.prevent="post_event">
+    <v-form>
         <v-container>
             <v-row>
                 <v-col cols="12">
@@ -11,12 +11,16 @@
                     <v-text-field
                     v-model="isDay.title"
                     label="title"
+                    density="compact"
                     required
                     >
                     </v-text-field>
                     <v-row>
                         <v-col cols="6">
-                            <v-select label="Game" v-model="game_selection" theme="dark" :items="['Brass Birmingham','Smartphone','Pax Rennaissance']">
+                            <v-select label="Game" 
+                                v-model="game_selection" theme="dark" 
+                                density="compact"
+                                :items="['Brass Birmingham','Smartphone','Pax Rennaissance']">
                             </v-select>
                         </v-col>
                         <v-col cols="6">
@@ -25,6 +29,7 @@
                                 label="Date"
                                 required
                                 type="date"
+                                density="compact"
                             ></v-text-field>
                         </v-col>
                     </v-row>
@@ -33,6 +38,7 @@
                             <v-text-field
                                 v-model="isDay.exp.base"
                                 label="Base Exp"
+                                density="compact"
                             >
                             </v-text-field>
                         </v-col>
@@ -40,6 +46,7 @@
                             <v-text-field
                                 v-model="isDay.exp.win"
                                 label="Win Exp"
+                                density="compact"
                             >
                             </v-text-field>
                         </v-col>
@@ -47,6 +54,7 @@
                             <v-text-field
                                 v-model="isDay.exp.loss"
                                 label="Loss Exp"
+                                density="compact"
                             >
                             </v-text-field>
                         </v-col>
@@ -57,6 +65,7 @@
                             label="Venue"
                             theme="dark"
                             v-model="game_venue"
+                            density="compact"
                             :items="['Maison Cam','Russian Basement','Ian Fortress','HFG']">
                             </v-select>
                         </v-col>
@@ -67,9 +76,21 @@
                             <v-card title="BGG-Rating" text="4.8"></v-card>
                         </v-col>
                         <v-col class="text-center" cols="4">
-                            <v-btn type="submit" v-model="testbutton">
-                            {{isUpdate}}
-                            </v-btn>
+                            <v-row>
+                                <v-col>
+                                    <v-btn @click="post_event">
+                                        {{isUpdate}}
+                                    </v-btn>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col>
+                                    <WaitingForAxios :_done="_done"/>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                {{ _added }}
+                            </v-row>
                         </v-col>
                     </v-row>
                 </v-col>
@@ -81,7 +102,7 @@
                 </v-col>
                 <v-col cols="3">
                     <RouterLink to="/experiences">
-                        <v-btn block>Generate Experience</v-btn>
+                        <v-btn block>Experience</v-btn>
                     </RouterLink>
                 </v-col>        
             </v-row>
@@ -92,10 +113,12 @@
 import { useMikeDbEventStore } from "@/stores/events"
 import { mapStores } from "pinia";
 import ExperienceSummaryList  from "./ExperienceSummaryList.vue"
+import WaitingForAxios from "./WaitingForAxios.vue";
 
 export default {
     components:{
         ExperienceSummaryList
+        ,WaitingForAxios
     }
     ,data() {
         return {
@@ -105,6 +128,10 @@ export default {
             ,game_venue:""
             ,new_event:{}
             ,testbutton:""
+            ,_done: true
+            ,_added:""
+            ,_addLable : "Add"
+            ,_updateLable :"Update"
         }
     }
     ,computed:{
@@ -119,22 +146,19 @@ export default {
             return this.eventDetails.startDate ? this.eventDetails:this.selectedDay
         }
         ,isUpdate(){
-            return this.eventDetails.id ? "Update":"Add"
+            return (this.eventDetails.id || this.eventsStore.created_event.data) ? this._updateLable:this._addLable
         }
     }
     ,methods:{
         post_event(){
-            if(!this.eventDetails.id){
+            if(!this.eventDetails.id && !this.eventsStore.created_event.data){
                 this.add()
             }
             else{
                 this.update()
             }
         }
-        ,add() {
-            console.log("selected day" + this.isDay)
-            console.log("selected event"+ this.eventDetails )
-            
+        ,async add() {            
             const _event = {
                 "startDate":this.isDay.startDate
                 ,"title":this.isDay.title
@@ -152,8 +176,17 @@ export default {
                 ,"venue": this.game_venue
             }
             this.new_event = _event
-            console.log('adding a new event:', this.isDay)
-            this.eventsStore.postNewEvent(this.new_event)
+            this._done=false
+            this._added=""
+
+            await this.eventsStore.postNewEvent(this.new_event)
+            .then(() =>{
+                console.log("the created event", this.eventsStore.created_event)
+                this._done=true;
+                this._added="Added Successfully."
+                }
+            )
+
         },
         update(){
             console.log('updating an existing event:', this.isDay)

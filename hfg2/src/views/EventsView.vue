@@ -143,6 +143,7 @@
 				this.selectionEnd = null
 				this.message = `You clicked: ${d.toLocaleDateString()}`
 				this.eventsStore.resetClickedEvent()
+				this.eventsStore.resetCreatedEvent()
 				this.eventsStore.setClickedDay(d.toISOString().substring(0,10))
 				this.toggleModal()
 			},
