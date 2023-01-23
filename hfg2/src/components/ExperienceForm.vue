@@ -1,7 +1,15 @@
 <template>
     <v-form>
         <v-row>
-            <v-col>
+            <v-col cols="9">
+                <h3>Experience Details</h3>
+            </v-col>
+            <v-col cols="3" class="text-end">
+                Date: {{ today }}
+            </v-col>
+        </v-row>
+        <v-row>
+            <v-col cols="3">
                 <v-img height="100%" cover>
                     <v-avatar
                         color="grey"
@@ -15,7 +23,7 @@
                     </v-avatar>
                 </v-img>
             </v-col>  
-            <v-col cols="12" md="9">
+            <v-col cols="9">
                 <v-text-field
                     label="Event Title"
                     density="compact"
@@ -32,10 +40,24 @@
                     label="Experience Summary"
                     density="compact"
                 ></v-text-field>
-                <v-text-field
-                    label="Score"
-                    density="compact"
-                ></v-text-field>
+            </v-col>
+        </v-row>
+        <v-row>
+            <v-col>
+                <v-row>
+                    <v-col cols="12">
+                        <v-text-field
+                            label="Score"
+                            density="compact"
+                        ></v-text-field>
+                        <v-checkbox
+                            label="Is Winner"
+                            density="compact"
+                        ></v-checkbox>
+                    </v-col>
+                </v-row>
+            </v-col>
+            <v-col cols="7">
                 <v-row>
                     <v-col cols="10">
                         <v-slider
@@ -70,9 +92,6 @@
                         ></v-text-field>
                     </v-col>
                 </v-row>
-                <v-checkbox
-                label="Is Winner"
-                ></v-checkbox>
             </v-col>
         </v-row>
         <v-row>
@@ -124,6 +143,9 @@ export default {
         }
         ,game_game(){
             return this.experiencesStore.passedEvent.game
+        }
+        ,today(){
+            return new Date().toISOString().substring(0,10)
         }
     }
 }
