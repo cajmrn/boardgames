@@ -9,6 +9,7 @@ export const useMikeDbEventStore =  defineStore('events',{
             ,_selected_event: {}
             ,_selected_day: {}
             ,_created_event: {}
+            ,_exp_event:{}
         }
     }
     ,getters:{
@@ -18,6 +19,7 @@ export const useMikeDbEventStore =  defineStore('events',{
         ,selected_event: (state) => state._selected_event
         ,selected_day: (state) => state._selected_day
         ,created_event: (state) => state._created_event
+        ,exp_event: (state) => state._exp_event
     },
     actions:{
         async getAllEvents(){
@@ -26,21 +28,21 @@ export const useMikeDbEventStore =  defineStore('events',{
                     this._game_events = response.data
                 })
                 .catch((err) => console.log(err))
-        },
-        async postNewEvent(_eventdetails: any) {
+        }
+        ,async getEvent(_id: any){
+            return await _mikedb.get(MIKEDB_EVENT_URL+_id)
+            .then(response =>{
+                console.log(response)
+            } )
+            .catch((err) => console.log(err))
+        }
+        ,async postNewEvent(_eventdetails: any) {
             return await _mikedb.post(MIKEDB_EVENT_URL,_eventdetails)
             .then(response => {
                 console.log("response from events.ts", response)
                 this._created_event = response
             })
             .catch((err) => console.log(err));
-        },
-        async getEvent(_id: any){
-            return await _mikedb.get(MIKEDB_EVENT_URL+_id)
-            .then(response =>{
-                console.log(response)
-            } )
-            .catch((err) => console.log(err))
         }
         ,setEventId(_id:any){
             this._event_id = _id
@@ -69,6 +71,9 @@ export const useMikeDbEventStore =  defineStore('events',{
         }
         ,resetCreatedEvent(){
             this._created_event = {}
+        }
+        ,setExpEvent(_eventToPass:any){
+            this._exp_event = _eventToPass
         }
         ,get_today(){
             return new Date().toISOString().substring(0,10)

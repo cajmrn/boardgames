@@ -12,6 +12,7 @@
                   block 
                   type="button" 
                   style="background-color: rgb(33,33,33);" 
+                  size="large"
                   @click="closeForm">Close</v-btn>
               </v-col>
             </v-row>

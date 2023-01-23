@@ -78,7 +78,7 @@
                         <v-col class="text-center" cols="4">
                             <v-row>
                                 <v-col>
-                                    <v-btn @click="post_event">
+                                    <v-btn block @click="post_event">
                                         {{isUpdate}}
                                     </v-btn>
                                 </v-col>
@@ -102,8 +102,10 @@
                 </v-col>
                 <v-col cols="3">
                     <RouterLink to="/experiences">
-                        <v-btn block>Experience</v-btn>
+                        <!-- <v-btn block @click="navigateToExperience">Experience</v-btn> -->
+                        <v-btn block  @click="navigateToExperience" :disabled="!canPass">Experience</v-btn>
                     </RouterLink>
+                    
                 </v-col>        
             </v-row>
         </v-container>
@@ -126,8 +128,7 @@ export default {
             ,bggRating:""
             ,bggWeight:""
             ,game_venue:""
-            ,new_event:{}
-            ,testbutton:""
+            ,_event:{}
             ,_done: true
             ,_added:""
             ,_addLable : "Add"
@@ -146,7 +147,13 @@ export default {
             return this.eventDetails.startDate ? this.eventDetails:this.selectedDay
         }
         ,isUpdate(){
-            return (this.eventDetails.id || this.eventsStore.created_event.data) ? this._updateLable:this._addLable
+            return this.canPass ? this._updateLable:this._addLable
+        }
+        ,canPass(){
+            return (this.eventDetails.id || this.eventsStore.created_event.data)
+        }
+        ,eventToPass(){
+            return this.eventDetails.id ? this.eventDetails : this.eventsStore.created_event.data
         }
     }
     ,methods:{
@@ -159,7 +166,7 @@ export default {
             }
         }
         ,async add() {            
-            const _event = {
+            const _temp_event = {
                 "startDate":this.isDay.startDate
                 ,"title":this.isDay.title
                 ,"game":this.game_selection
@@ -175,11 +182,11 @@ export default {
                 ,"winner":0
                 ,"venue": this.game_venue
             }
-            this.new_event = _event
+            this._event = _temp_event
             this._done=false
             this._added=""
 
-            await this.eventsStore.postNewEvent(this.new_event)
+            await this.eventsStore.postNewEvent(this._event)
             .then(() =>{
                 console.log("the created event", this.eventsStore.created_event)
                 this._done=true;
@@ -190,6 +197,9 @@ export default {
         },
         update(){
             console.log('updating an existing event:', this.isDay)
+        }
+        ,navigateToExperience(){
+            this.eventsStore.setExpEvent(this.eventToPass)
         }
     }
 }

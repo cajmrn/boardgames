@@ -1,4 +1,5 @@
 <template>
+    <RouterLink to="/experiences">
     <v-list-item>
         <v-row>
         <v-col cols="2">
@@ -14,6 +15,7 @@
         </v-col>
     </v-row>
     </v-list-item>
+    </RouterLink>
 </template>
 <script>
     export default {

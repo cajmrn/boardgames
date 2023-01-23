@@ -176,7 +176,8 @@
 				item.originalItem.endDate = CalendarMath.addDays(item.endDate, eLength)
 			},
 			toggleModal() {
-				this.modalActive = !this.modalActive				
+				this.modalActive = !this.modalActive	
+				this.eventsStore.resetCreatedEvent()			
 			}
 		},
 	}
