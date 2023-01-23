@@ -27,18 +27,19 @@
                 <v-text-field
                     label="Event Title"
                     density="compact"
-                    v-model="game_title"
+                    v-model="event_title"
                     disabled
                 ></v-text-field>
                 <v-text-field
                     label="Game"
                     density="compact"
-                    v-model="game_game"
+                    v-model="event_game"
                     disabled
                 ></v-text-field>
                 <v-text-field
                     label="Experience Summary"
                     density="compact"
+                    v-model="summary"
                 ></v-text-field>
             </v-col>
         </v-row>
@@ -49,10 +50,12 @@
                         <v-text-field
                             label="Score"
                             density="compact"
+                            v-model="score"
                         ></v-text-field>
                         <v-checkbox
                             label="Is Winner"
                             density="compact"
+                            v-model="is_winner"
                         ></v-checkbox>
                     </v-col>
                 </v-row>
@@ -64,6 +67,8 @@
                             label="Rating"
                             :max="10"
                             step="1"
+                            v-model="rating"
+                            track-color="white"
                             hide-details
                         ></v-slider>
                     </v-col>
@@ -71,6 +76,7 @@
                         <v-text-field 
                             density="compact" 
                             hide-details 
+                            v-model="rating"
                             variant="outlined"
                         ></v-text-field>
                     </v-col>
@@ -81,6 +87,8 @@
                             label="Weight"
                             :max="10"
                             step="1"
+                            v-model="weight"
+                            track-color="white"
                             hide-details
                         ></v-slider> 
                     </v-col>
@@ -88,6 +96,7 @@
                         <v-text-field 
                             density="compact" 
                             hide-details 
+                            v-model="weight"
                             variant="outlined"
                         ></v-text-field>
                     </v-col>
@@ -99,6 +108,7 @@
                 <v-textarea 
                     label="Corrections"
                     density="compact"
+                    v-model="corrections"
                 ></v-textarea>
             </v-col>
         </v-row>
@@ -107,6 +117,7 @@
                 <v-textarea 
                     density="compact"
                     label="Strategy"
+                    v-model="strategy"
                 ></v-textarea>
             </v-col>
         </v-row>
@@ -115,6 +126,7 @@
                 <v-textarea 
                     density="compact"
                     label="Final Comments"
+                    v-model="comments"
                 ></v-textarea>
             </v-col>
         </v-row>
@@ -123,10 +135,12 @@
                 <v-file-input 
                     label="File Upload"
                     density="compact"
+                    v-model="upload"
+                    multiple
                 ></v-file-input>
             </v-col>
             <v-col cols="12" md="2">
-                <v-btn>Submit</v-btn>
+                <v-btn @click="post_experience">Submit</v-btn>
             </v-col>
         </v-row>
     </v-form>
@@ -136,16 +150,68 @@ import {useMkeDBExperienceStore} from '@/stores/experiences'
 import { mapStores } from 'pinia';
 
 export default {
-    computed:{
+    data(){
+        return{
+            summary:""
+            ,strategy:""
+            ,corrections:""
+            ,is_winner: Boolean
+            ,score: 0
+            ,rating:0
+            ,weight:0
+            ,comments:""
+            ,upload:[]
+            ,_experience:{}
+        }
+    }
+    ,computed:{
         ...mapStores(useMkeDBExperienceStore)
-        ,game_title(){
+        ,event_title(){
             return this.experiencesStore.passedEvent.title
         }
-        ,game_game(){
+        ,event_game(){
             return this.experiencesStore.passedEvent.game
+        }
+        ,event_id(){
+            return this.experiencesStore.passedEvent.id
         }
         ,today(){
             return new Date().toISOString().substring(0,10)
+        }
+    }
+    ,methods:{
+        post_experience(){
+            this.add()
+        }
+        , async add(){
+            const temp_exp={
+                "submitted_by": 596121520725219
+                ,"submitted_date": this.today
+                ,"event_id":this.event_id
+                ,"summary": this.summary
+                ,"strategy": this.strategy
+                ,"corrections":this.corrections
+                ,"is_winner": this.is_winner
+                ,"score": this.score
+                ,"rating": this.rating
+                ,"weight": this.weight
+                ,"comments":this.comments
+                ,"pics":this.upload
+            }
+            this._experience = temp_exp
+
+            console.log(this._experience)
+            await this.experiencesStore.postNewExperience(this._experience)
+                .then(() =>{
+                    console.log('sucess, now need to add the id to the event:')                    
+                })
+                .catch(err => console.log(err))
+            await this.experiencesStore.setExpSummary(this.experiencesStore._created_experience)
+            
+            //need to figure out how to not do this. need a cleaner solution that a full refresh.
+            this.$router
+                .push({path:'/events'})
+                .then(() => this.$router.go())
         }
     }
 }

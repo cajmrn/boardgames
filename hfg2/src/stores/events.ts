@@ -10,6 +10,7 @@ export const useMikeDbEventStore =  defineStore('events',{
             ,_selected_day: {}
             ,_created_event: {}
             ,_exp_event:{}
+            ,_patched_event: {}
         }
     }
     ,getters:{
@@ -20,6 +21,7 @@ export const useMikeDbEventStore =  defineStore('events',{
         ,selected_day: (state) => state._selected_day
         ,created_event: (state) => state._created_event
         ,exp_event: (state) => state._exp_event
+        ,patched_event: (state) => state._patched_event
     },
     actions:{
         async getAllEvents(){
@@ -77,6 +79,19 @@ export const useMikeDbEventStore =  defineStore('events',{
         }
         ,get_today(){
             return new Date().toISOString().substring(0,10)
+        }
+        ,setExpSummary(_exp:any){
+            //this will update the event with the experience.
+            console.log("found event",this.eventById(_exp.data.event_id))
+            return this.eventById(_exp.data.event_id)[0]
+        }
+        ,async patchEvent(_eventdetails:any){
+            return await _mikedb.patch(MIKEDB_EVENT_URL,_eventdetails)
+            .then(response => {
+                console.log("response from events.ts", response)
+                this._patched_event = response
+            })
+            .catch((err) => console.log(err));
         }   
     }
 })
