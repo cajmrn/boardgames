@@ -89,7 +89,7 @@
                                 </v-col>
                             </v-row>
                             <v-row>
-                                {{ _added }}
+                                {{ _axios_status }}
                             </v-row>
                         </v-col>
                     </v-row>
@@ -102,10 +102,8 @@
                 </v-col>
                 <v-col cols="3">
                     <RouterLink to="/experiences">
-                        <!-- <v-btn block @click="navigateToExperience">Experience</v-btn> -->
                         <v-btn block  @click="navigateToExperience" :disabled="!canPass">Experience</v-btn>
-                    </RouterLink>
-                    
+                    </RouterLink> 
                 </v-col>        
             </v-row>
         </v-container>
@@ -130,7 +128,7 @@ export default {
             ,game_venue:""
             ,_event:{}
             ,_done: true
-            ,_added:""
+            ,_axios_status:""
             ,_addLable : "Add"
             ,_updateLable :"Update"
         }
@@ -156,16 +154,11 @@ export default {
             return this.eventDetails.id ? this.eventDetails : this.eventsStore.created_event.data
         }
     }
+    ,unmounted(){
+			this.eventsStore.setEventId(null)
+	}
     ,methods:{
         post_event(){
-            if(!this.eventDetails.id && !this.eventsStore.created_event.data){
-                this.add()
-            }
-            else{
-                this.update()
-            }
-        }
-        ,async add() {            
             const _temp_event = {
                 "startDate":this.isDay.startDate
                 ,"title":this.isDay.title
@@ -182,21 +175,37 @@ export default {
                 ,"winner":0
                 ,"venue": this.game_venue
             }
-            this._event = _temp_event
+            if(!this.eventDetails.id && !this.eventsStore.created_event.data){
+                this.add(_temp_event)
+            }
+            else{
+                this.update(_temp_event)
+            }
+        }
+        ,async add(_evt) {            
+            this._event = _evt
             this._done=false
-            this._added=""
-
+            this._axios_status=""
             await this.eventsStore.postNewEvent(this._event)
             .then(() =>{
                 console.log("the created event", this.eventsStore.created_event)
                 this._done=true;
-                this._added="Added Successfully."
+                this._axios_status="Added Successfully."
                 }
             )
 
-        },
-        update(){
-            console.log('updating an existing event:', this.isDay)
+        }
+        ,async update(_evt){
+            this._event = _evt
+            this._event.id = this.eventsStore.selected_event.id
+            this._done=false
+            this._axios_status = ""
+            await this.eventsStore.patchEvent(this._event)
+                .then(()=>{
+                    console.log("the updated event", this._event)
+                    this.done=true;
+                    this._axios_status = "Updated Successfully"
+                })
         }
         ,navigateToExperience(){
             this.eventsStore.setExpEvent(this.eventToPass)

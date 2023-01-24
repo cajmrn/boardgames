@@ -36,7 +36,6 @@ export default{
         }
     }
     ,mounted(){
-        
         this.experiencesStore.getAllExperiences()
         console.log("all experiences", this._experiences)
         console.log('experience_event_id', this.experiencesStore.event_id)

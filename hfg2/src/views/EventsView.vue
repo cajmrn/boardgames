@@ -126,10 +126,9 @@
 		mounted() {
 			this.newItemStartDate = CalendarMath.isoYearMonthDay(CalendarMath.today())
 			this.newItemEndDate = CalendarMath.isoYearMonthDay(CalendarMath.today())
-
       		this.eventsStore.getAllEvents()
-		},
-		methods: {
+		}
+		,methods: {
 			periodChanged() {
 				// range, eventSource) {
 				// Demo does nothing with this information, just including the method to demonstrate how
@@ -180,7 +179,7 @@
 			},
 			toggleModal() {
 				this.modalActive = !this.modalActive	
-				this.eventsStore.resetCreatedEvent()			
+				this.eventsStore.resetCreatedEvent()
 			}
 		},
 	}
