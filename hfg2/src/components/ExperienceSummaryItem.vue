@@ -8,10 +8,10 @@
             </v-avatar>
         </v-col>
         <v-col cols="8">
-            It was good but not that good.
+            {{experience.summary}}
         </v-col>
         <v-col cols="2">
-            95
+            {{ experience.rating }}
         </v-col>
     </v-row>
     </v-list-item>
@@ -20,5 +20,8 @@
 <script>
     export default {
         name:"ExperienceSummaryItem"
+        ,props:{
+            experience
+        }
     }
 </script>

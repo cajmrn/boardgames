@@ -33,11 +33,8 @@
       ></v-btn>-->
     </v-app-bar>
     <v-main>
-      <v-container>
         <RouterView/>
-      </v-container>
     </v-main>
-    
   </v-app>
   
 </template>
@@ -73,6 +70,6 @@ import {RouterLink, RouterView} from 'vue-router'
   }
 </script>
 
-<style scoped>
+<style>
 
 </style>
