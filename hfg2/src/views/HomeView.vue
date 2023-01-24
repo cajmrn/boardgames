@@ -9,8 +9,10 @@
       Committee for the advancement of complicated boardgames
       </v-col>
     </v-row>
-    <v-row>
+    <v-row align="center" justify="center">
+      Abandon hope all ye who enter here
     </v-row>
+    
   </v-container>
 </template>
 
