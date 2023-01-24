@@ -5,6 +5,7 @@
   margin: 0 auto;
   padding: 1rem;
   font-weight: normal;
+  max-height: 100vh;
 }
 a,
 .green {
@@ -21,6 +22,7 @@ a,
 
 @media (min-width: 1440px) {
   #app {
+    max-height: 100vh;
     max-width: 1440px;
     padding: 1rem 2rem;
   }

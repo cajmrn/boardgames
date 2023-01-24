@@ -17,7 +17,7 @@
         </RouterLink>
       </v-btn>
       <v-btn>
-        <RouterLink to="/games">
+        <RouterLink to="/games_v2">
           <v-app-bar-title>Games</v-app-bar-title>
         </RouterLink>
       </v-btn>
@@ -35,13 +35,16 @@
     <v-main>
         <RouterView/>
     </v-main>
+    <Footer v-if="$route.path !== '/'" />
   </v-app>
+
   
 </template>
 
 <script lang="ts">
  
 import {RouterLink, RouterView} from 'vue-router'
+import Footer from './components/Footer.vue'
 
   export default {
     data(){
@@ -54,7 +57,8 @@ import {RouterLink, RouterView} from 'vue-router'
     }
     ,components: {
       RouterLink,
-      RouterView,
+      RouterView
+      ,Footer
     }
     ,methods:{
       onClick() {

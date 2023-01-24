@@ -57,6 +57,8 @@
 	import {ref} from 'vue'
 	import { mapStores } from "pinia"
 	import { useMikeDbEventStore } from "@/stores/events"
+
+
 	export default {
 		name: "App",
 		components: {
@@ -93,15 +95,16 @@
 			},
 			dayNames() {
 				return CalendarMath.getFormattedWeekdayNames(this.userLocale, "long", 0)
-			},
-			themeClasses() {
+			}
+			,themeClasses() {
 				return {
 					"theme-default": /*this.useDefaultTheme*/this.$vuetify.theme, 
 					"holiday-us-traditional": this.useHolidayTheme,
 					"holiday-us-official": this.useHolidayTheme,
 				}
-			},
-			myDateClasses() {
+			}
+			
+			,myDateClasses() {
 				// This was added to demonstrate the dateClasses prop. Note in particular that the
 				// keys of the object are `yyyy-mm-dd` ISO date strings (not dates), and the values
 				// for those keys are strings or string arrays. Keep in mind that your CSS to style these

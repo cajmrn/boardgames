@@ -40,7 +40,7 @@
                     </v-col>
                 </v-row>               
             </v-col>
-            <v-divider></v-divider>
+
             </v-row>
                 <v-list-item
                     class="text-white"
