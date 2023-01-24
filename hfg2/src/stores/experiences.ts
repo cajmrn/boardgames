@@ -16,7 +16,11 @@ export const useMkeDBExperienceStore = defineStore('experiences',{
             const _eventStore = useMikeDbEventStore(); //TODO: How do I make this globally acceessible.
             return _eventStore.exp_event
         }
-
+        ,event_id:(state) =>{
+            const _eventStore = useMikeDbEventStore();
+            return _eventStore.event_id
+        }
+        ,eventExperiences:(state) =>{return (_id:any) => state._experiences.filter(_i => _i['event_id'] === _id)}
     }
     ,actions:{
         async getAllExperiences() {
