@@ -1,10 +1,15 @@
 <template>
   <v-container class="fill-height">
     <v-row align="center" justify="center" class="fill-height">
-      <!-- <v-col cols="12"> -->
-        <!-- <RouterLink to="/games_v2">Check out Games V2</RouterLink> -->
-        <v-img max-height='200' :src="p_image"></v-img>
-      <!-- </v-col> -->
+      <v-col cols="2" offset="1">
+        <v-img max-height='200' :src="p_image">
+        </v-img>
+      </v-col>
+      <v-col cols="3">
+      Committee for the advancement of complicated boardgames
+      </v-col>
+    </v-row>
+    <v-row>
     </v-row>
   </v-container>
 </template>
