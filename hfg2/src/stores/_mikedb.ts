@@ -5,6 +5,7 @@ export const MIKEDB_COMMISSIONER_URL = 'http://gerdov.com/mike-db/api/hfg2DB/com
 export const MIKEDB_EXPERIENCE_URL = 'http://gerdov.com/mike-db/api/hfg2DB/experiences/';
 export const MIKEDB_RANK_URL = 'http://gerdov.com/mike-db/api/hfg2DB/ranks/';
 export const MIKEDB_VENUE_URL = 'http://gerdov.com/mike-db/api/hfg2DB/venues/';
+export const MIKEDB_GAME_URL = 'http://gerdov.com/mike-db/api/hfg2DB/games/';
 
 //axios.defaults.baseURL = 'http://gerdov.com/mike-db/api/hfg2DB/'
 

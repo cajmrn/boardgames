@@ -18,9 +18,10 @@
                     <v-row>
                         <v-col cols="6">
                             <v-select label="Game" 
-                                v-model="game_selection" theme="dark" 
+                                v-model="game_selection" 
+                                theme="dark" 
                                 density="compact"
-                                :items="['Brass Birmingham','Smartphone','Pax Rennaissance']">
+                                :items="gamesList">
                             </v-select>
                         </v-col>
                         <v-col cols="6">
@@ -111,6 +112,7 @@
 </template>
 <script>
 import { useMikeDbEventStore } from "@/stores/events"
+import { useMikeDBGameStore } from "@/stores/mikedb_games"
 import { mapStores } from "pinia";
 import ExperienceSummaryList  from "./ExperienceSummaryList.vue"
 import WaitingForAxios from "./WaitingForAxios.vue";
@@ -133,8 +135,17 @@ export default {
             ,_updateLable :"Update"
         }
     }
+    ,mounted(){
+        
+        this.mikedb_gamesStore.getAllGames()
+        console.log(this.mikedb_gamesStore.gameslist)
+    }
     ,computed:{
         ...mapStores(useMikeDbEventStore)
+        ,...mapStores(useMikeDBGameStore)
+        ,gamesList(){
+            return this.mikedb_gamesStore.gamesList
+        }
         ,eventDetails(){
             return this.eventsStore.selected_event
         }
