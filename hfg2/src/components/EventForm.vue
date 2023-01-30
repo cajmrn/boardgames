@@ -18,7 +18,7 @@
                     <v-row>
                         <v-col cols="6">
                             <v-select label="Game" 
-                                v-model="game_selection" 
+                                v-model="isDay.game" 
                                 theme="dark" 
                                 density="compact"
                                 :items="gamesList">
@@ -113,7 +113,7 @@
 <script>
 import { useMikeDbEventStore } from "@/stores/events"
 import { useMikeDBGameStore } from "@/stores/mikedb_games"
-import { mapStores } from "pinia";
+import { mapState, mapStores } from "pinia";
 import ExperienceSummaryList  from "./ExperienceSummaryList.vue"
 import WaitingForAxios from "./WaitingForAxios.vue";
 
@@ -136,15 +136,14 @@ export default {
         }
     }
     ,mounted(){
-        
         this.mikedb_gamesStore.getAllGames()
-        console.log(this.mikedb_gamesStore.gameslist)
+        
     }
     ,computed:{
         ...mapStores(useMikeDbEventStore)
         ,...mapStores(useMikeDBGameStore)
         ,gamesList(){
-            return this.mikedb_gamesStore.gamesList
+            return this.mikedb_gamesStore.mikedb_gamelist.slice().map(i => i.name)     
         }
         ,eventDetails(){
             return this.eventsStore.selected_event
@@ -173,7 +172,7 @@ export default {
             const _temp_event = {
                 "startDate":this.isDay.startDate
                 ,"title":this.isDay.title
-                ,"game":this.game_selection
+                ,"game":this.isDay.game
                 ,"attendees":[]
                 ,"tgc_weight": this.bggWeight
                 ,"tgc_rating": this.bggRating
