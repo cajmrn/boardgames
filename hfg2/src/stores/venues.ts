@@ -11,7 +11,7 @@ export const useMikeDbVenueStore = defineStore('venues',{
         venueList: (state) => state._venues
     }
     ,actions:{
-        async get_all_venues(){
+        async getAllVenues(){
             return await _mikedb.get(MIKEDB_VENUE_URL)
                 .then(response => {
                     this._venues = response.data

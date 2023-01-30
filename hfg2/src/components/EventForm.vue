@@ -65,18 +65,12 @@
                             <v-select 
                             label="Venue"
                             theme="dark"
-                            v-model="game_venue"
+                            v-model="isDay.venue"
                             density="compact"
-                            :items="['Maison Cam','Russian Basement','Ian Fortress','HFG']">
+                            :items="venueList">
                             </v-select>
                         </v-col>
-                        <v-col cols="2">
-                            <v-card title="BGG-Weight" text="3.46"></v-card>
-                        </v-col>
-                        <v-col cols="2">
-                            <v-card title="BGG-Rating" text="4.8"></v-card>
-                        </v-col>
-                        <v-col class="text-center" cols="4">
+                        <v-col class="text-center" cols="8">
                             <v-row>
                                 <v-col>
                                     <v-btn block @click="post_event">
@@ -89,7 +83,7 @@
                                     <WaitingForAxios :_done="_done"/>
                                 </v-col>
                             </v-row>
-                            <v-row>
+                            <v-row align="center" justify="center">
                                 {{ _axios_status }}
                             </v-row>
                         </v-col>
@@ -113,7 +107,8 @@
 <script>
 import { useMikeDbEventStore } from "@/stores/events"
 import { useMikeDBGameStore } from "@/stores/mikedb_games"
-import { mapState, mapStores } from "pinia";
+import { useMikeDbVenueStore } from "@/stores/venues";
+import { mapStores } from "pinia";
 import ExperienceSummaryList  from "./ExperienceSummaryList.vue"
 import WaitingForAxios from "./WaitingForAxios.vue";
 
@@ -124,11 +119,7 @@ export default {
     }
     ,data() {
         return {
-            game_selection: ""
-            ,bggRating:""
-            ,bggWeight:""
-            ,game_venue:""
-            ,_event:{}
+            _event:{}
             ,_done: true
             ,_axios_status:""
             ,_addLable : "Add"
@@ -137,13 +128,17 @@ export default {
     }
     ,mounted(){
         this.mikedb_gamesStore.getAllGames()
-        
+        this.venuesStore.getAllVenues()
     }
     ,computed:{
         ...mapStores(useMikeDbEventStore)
         ,...mapStores(useMikeDBGameStore)
+        ,...mapStores(useMikeDbVenueStore)
         ,gamesList(){
             return this.mikedb_gamesStore.mikedb_gamelist.slice().map(i => i.name)     
+        }
+        ,venueList(){
+            return this.venuesStore.venueList.slice().map(i => i.name)
         }
         ,eventDetails(){
             return this.eventsStore.selected_event
@@ -183,7 +178,7 @@ export default {
                     ,"loss": this.isDay.exp.loss
                     }
                 ,"winner":0
-                ,"venue": this.game_venue
+                ,"venue": this.isDay.venue
             }
             if(!this.eventDetails.id && !this.eventsStore.created_event.data){
                 this.add(_temp_event)
@@ -202,8 +197,8 @@ export default {
                 this._done=true;
                 this._axios_status="Added Successfully."
                 }
+                
             )
-
         }
         ,async update(_evt){
             this._event = _evt
@@ -213,7 +208,7 @@ export default {
             await this.eventsStore.patchEvent(this._event)
                 .then(()=>{
                     console.log("the updated event", this._event)
-                    this.done=true;
+                    this._done=true;
                     this._axios_status = "Updated Successfully"
                 })
         }
