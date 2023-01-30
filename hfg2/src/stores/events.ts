@@ -92,6 +92,12 @@ export const useMikeDbEventStore =  defineStore('events',{
                 this._patched_event = response
             })
             .catch((err) => console.log(err));
+        }
+        ,async deleteEvent(_eventdetails:any){
+            return await _mikedb.delete(MIKEDB_EVENT_URL, _eventdetails)
+            .then(resposne => {
+                console.log ("response from events.ts", resposne)
+            }
         }   
     }
 })
