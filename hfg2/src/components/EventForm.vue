@@ -77,6 +77,11 @@
                                         {{isUpdate}}
                                     </v-btn>
                                 </v-col>
+                                <v-col v-if="eventDetails.id">
+                                    <v-btn block @click="delete_event">
+                                        Delete
+                                    </v-btn>
+                                </v-col>
                             </v-row>
                             <v-row>
                                 <v-col>
@@ -187,6 +192,20 @@ export default {
                 this.update(_temp_event)
             }
         }
+        ,async delete_event(_evt){
+            this._event = _evt
+            this._event.id = this.eventsStore.selected_event.id
+            this._done = false
+            this._axios_status = ""
+            console.log("in delete", this.eventsStore.selected_event.id )
+            await this.eventsStore.deleteEvent(this.eventsStore.selected_event)
+                .then(()=>{
+                    console.log("the deleted event", this._event)
+                    this._done=true;
+                    this._axios_status = "Deleted Successfully"
+                })
+
+        }
         ,async add(_evt) {            
             this._event = _evt
             this._done=false
@@ -215,6 +234,7 @@ export default {
         ,navigateToExperience(){
             this.eventsStore.setExpEvent(this.eventToPass)
         }
+        
     }
 }
 </script>
