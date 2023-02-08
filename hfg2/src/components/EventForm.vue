@@ -184,6 +184,7 @@ export default {
                     }
                 ,"winner":0
                 ,"venue": this.isDay.venue
+                ,"submitted_by":"0"
             }
             if(!this.eventDetails.id && !this.eventsStore.created_event.data){
                 this.add(_temp_event)
