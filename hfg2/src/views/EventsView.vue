@@ -59,6 +59,7 @@
 	import { useMikeDbEventStore } from "@/stores/events"
 
 
+
 	export default {
 		name: "App",
 		components: {
@@ -87,6 +88,9 @@
 				useDefaultTheme: false,
 				useHolidayTheme: true,
 				useTodayIcons: false
+				,user: this.$auth0.user
+        		,isAuthenticated: this.$auth0.isAuthenticated
+        		,isLoading: this.$auth0.isLoading
 			}
 		},
 		computed: {

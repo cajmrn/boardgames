@@ -21,6 +21,9 @@
           <v-app-bar-title>Games</v-app-bar-title>
         </RouterLink>
       </v-btn>
+      <v-btn @click="show_user">
+        user
+      </v-btn>
       <v-spacer></v-spacer>
       
       <v-btn v-if="!isAuthenticated" @click="run_login">
@@ -69,6 +72,9 @@ import Footer from './components/Footer.vue'
       }
       ,run_logout() {
         this.$auth0.logout({returnTo: window.location.origin})
+      }
+      ,show_user(){
+        console.log(this.user)
       }
     }
   }
