@@ -1,12 +1,12 @@
 <template>
 	<v-container>
-		<v-row>
+		<v-row >
 			<v-col cols="12">
 				<EventModal @close="toggleModal" :modalActive="modalActive">
 				</EventModal>	
 			</v-col>
 		</v-row>
-		<v-row>
+		<v-row v-if="isAuthenticated">
 			<v-col cols="12">
 				<div id="cal">		
 					<div class="calendar-controls">

@@ -74,7 +74,7 @@ import Footer from './components/Footer.vue'
         this.$auth0.logout({returnTo: window.location.origin})
       }
       ,show_user(){
-        console.log(this.user)
+        console.log(this.user.sub?.split("|")[1])
       }
     }
   }

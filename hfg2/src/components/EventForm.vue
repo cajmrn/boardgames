@@ -21,7 +21,14 @@
                                 v-model="isDay.game" 
                                 theme="dark" 
                                 density="compact"
-                                :items="gamesList">
+                                :items="gamesList"
+                                multiple>
+                            </v-select>
+                            <v-select 
+                                label="Game"
+                                theme="dark"
+                                density="compact"
+                            >
                             </v-select>
                         </v-col>
                         <v-col cols="6">
